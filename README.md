@@ -1,4 +1,6 @@
-thoughtsom
-==========
+## Release History
+_(Nothing yet)_
 
-Save thoughts and watch them get organized.
+## License
+Copyright (c) 2014 zach pratt  
+Licensed under the MIT license.

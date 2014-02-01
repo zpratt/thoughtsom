@@ -1,0 +1,21 @@
+{
+  "name": "thoughts-v2",
+  "version": "0.0.1",
+  "authors": [
+    "zach pratt <zach@attackofzach.com>"
+  ],
+  "description": "Thought Collector",
+  "main": "src/ui/index.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "jquery": "~2.0.3"
+  }
+}

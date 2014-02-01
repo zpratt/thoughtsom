@@ -1,0 +1,25 @@
+{
+    "curly": true,
+    "eqeqeq": true,
+    "immed": true,
+    "latedef": "nofunc",
+    "newcap": true,
+    "noarg": true,
+    "sub": true,
+    "undef": true,
+    "unused": true,
+    "boss": true,
+    "eqnull": true,
+    "node": true,
+    "globals": {
+        "describe": false,
+        "beforeEach": false,
+        "afterEach": false,
+        "it": false,
+        "dump": false,
+        "sinon": false,
+        "expect": false,
+        "_": false,
+        "$": false
+    }
+}

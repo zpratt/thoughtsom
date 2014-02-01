@@ -1,0 +1,59 @@
+{
+  "name": "thoughts-v2",
+  "description": "Thought Collector",
+  "version": "0.0.1",
+  "homepage": "",
+  "author": {
+    "name": "zach pratt",
+    "email": "zach@attackofzach.com",
+    "url": "http://attackofzach.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zpratt/thought-collector.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/thoughts-v2",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start karma.conf.js"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-watch": "~0.5.3",
+    "karma-script-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.1",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.2",
+    "karma-jasmine": "~0.1.4",
+    "requirejs": "~2.1.9",
+    "karma-requirejs": "~0.2.0",
+    "karma-coffee-preprocessor": "~0.1.1",
+    "karma-phantomjs-launcher": "~0.1.1",
+    "karma": "~0.10.8",
+    "mocha": "~1.17.1",
+    "karma-mocha": "~0.1.1",
+    "karma-chai": "0.0.2",
+    "karma-sinon": "~1.0.0",
+    "grunt": "~0.4.2",
+    "grunt-karma": "~0.6.2",
+    "grunt-mocha-cov": "0.2.x",
+    "chai": "~1.8.1",
+    "supertest": "~0.9.0",
+    "sinon": "~1.7.3",
+    "cucumber": "~0.3.3",
+    "grunt-cucumber": "~0.2.3"
+  },
+  "dependencies": {
+    "mongoose": "~3.8.4",
+    "lodash": "~2.4.1",
+    "express": "~3.4.8"
+  }
+}
