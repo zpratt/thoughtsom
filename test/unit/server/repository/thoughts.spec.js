@@ -58,12 +58,10 @@ describe("ThoughtRepository test suite", function () {
 
     it('should return a single thought given an id', function () {
         var spy = sinon.spy();
-        var id = '1';
+        var id = new mongoose.Types.ObjectId();
         var thought = repo.findById(id, spy);
 
         sinon.assert.calledOnce(ThoughtModel.findById);
-
-        console.log('returned thought is: ' + JSON.stringify(thought));
 
         assert.isDefined(thought);
         assert.equal(thought.id, id);
