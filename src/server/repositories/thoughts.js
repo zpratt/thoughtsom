@@ -20,8 +20,19 @@
     }
 
     _.extend(Repository.prototype, {
-        getModel: function() {
+        getModel: function () {
             return this.model;
+        },
+        findById: function (id) {
+            var result = null,
+                query;
+            query = this.model.findById(id);
+            query.exec(function (err, thought) {
+                result = thought;
+            }).then(function () {
+                return result;
+            });
+            return result;
         },
         save: function (thought) {
             return this.model.create(thought, handleError('save'));
