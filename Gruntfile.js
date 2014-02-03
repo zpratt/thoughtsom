@@ -59,8 +59,8 @@ module.exports = function (grunt) {
 
     // Default task.
     grunt.registerTask('default', ['jshint']);
-    grunt.registerTask('test', ['test:server', 'test:ui']);
-    grunt.registerTask('test:server', ['jshint', 'mochacov:all']);
-    grunt.registerTask('test:ui', ['jshint', 'karma']);
+    grunt.registerTask('test', ['bdd', 'unit:server', 'unit:ui']);
+    grunt.registerTask('unit:server', ['jshint', 'mochacov:all']);
+    grunt.registerTask('unit:ui', ['jshint', 'karma']);
     grunt.registerTask('bdd', ['cucumberjs']);
 };
