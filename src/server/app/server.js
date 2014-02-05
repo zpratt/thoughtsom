@@ -1,6 +1,7 @@
 'use strict';
 
-var express = require('express');
+var express = require('express'),
+    thoughtRoute = require('./controllers/thought-route');
 
 var app = express();
 
@@ -15,6 +16,4 @@ exports.start = function (port) {
 
 exports.app = app;
 
-app.get('/thought', function (req, res) {
-    res.send(200, { foo: 'bar' });
-});
+app.get('/thought', thoughtRoute.getById);

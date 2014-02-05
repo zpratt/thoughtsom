@@ -20,7 +20,7 @@
             callback();
         });
         this.When(/^A POST to \/thought is performed$/, function (callback) {
-            endpoint.get('/thought').expect(200, callback);
+            callback.pending();
         });
         this.Then(/^A thought is persisted$/, function (callback) {
             callback.pending();
@@ -30,7 +30,7 @@
             callback();
         });
         this.When(/^A GET is \/thought\/:id is performed$/, function(callback) {
-            callback.pending();
+            endpoint.get('/thought').expect(200, callback);
         });
         this.Then(/^A thought is returned$/, function(callback) {
             callback.pending();

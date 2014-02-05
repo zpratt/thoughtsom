@@ -10,6 +10,7 @@
             if (objectId) {
                 return thoughtRepo.findById(objectId);
             }
+            res.json({foo: 'bar'});
             return null;
         }
     };
