@@ -1,5 +1,5 @@
 {
-  "name": "thoughts-v2",
+  "name": "thoughtsom",
   "description": "Thought Collector",
   "version": "0.0.1",
   "homepage": "",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/zpratt/thought-collector.git"
+    "url": "git://github.com/zpratt/thoughtsom.git"
   },
   "licenses": [
     {
@@ -18,12 +18,12 @@
       "url": "/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "lib/thoughts-v2",
+  "main": "src/server/index.js",
   "engines": {
     "node": "0.10.x"
   },
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start karma.conf.js"
+    "test": "grunt test"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.6.4",
