@@ -32,7 +32,10 @@ describe('/thought endpoint test suite', function () {
                 params: {
                     id: id
                 }
-            }, {}
+            },
+            {
+                json: sinon.spy()
+            }
         );
 
         sinon.assert.calledOnce(thoughtRepo.findById);
@@ -45,7 +48,10 @@ describe('/thought endpoint test suite', function () {
         var thought = thoughtRoute.getById(
             {
                 params: {}
-            }, {}
+            },
+            {
+                json: sinon.spy()
+            }
         );
 
         sinon.assert.notCalled(thoughtRepo.findById);
