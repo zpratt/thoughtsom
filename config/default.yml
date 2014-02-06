@@ -1,0 +1,10 @@
+Default:
+  projRoot: '/development/node/thoughtsom/src'
+
+database:
+  host: localhost
+  port: 27017
+  name: thoughts
+
+server:
+  port: 8080
