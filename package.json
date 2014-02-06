@@ -49,7 +49,9 @@
     "supertest": "~0.9.0",
     "sinon": "~1.7.3",
     "cucumber": "~0.3.3",
-    "grunt-cucumber": "~0.2.3"
+    "grunt-cucumber": "~0.2.3",
+    "config": "~0.4.35",
+    "yaml": "~0.2.3"
   },
   "dependencies": {
     "mongoose": "~3.8.4",
