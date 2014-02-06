@@ -2,18 +2,21 @@
 
 (function () {
 
-    var request = require('supertest'),
-        server = require('../../../../src/server/app/server').app,
+    var CONFIG = require('config').Default,
+        request = require('supertest'),
+        server = require(process.env.HOME + CONFIG.projRoot + '/server/app/server').app,
         endpoint = request(server);
 
     module.exports = function () {
         this.World = require('../support/world').World;
 
         this.Before(function (callback) {
+            this.connectToDB(callback);
             this.createThought(callback);
         });
         this.After(function (callback) {
             this.clearDB(callback);
+            this.disconnectDB(callback);
         });
 
         this.Given(/^No thoughts exist$/, function (callback) {
