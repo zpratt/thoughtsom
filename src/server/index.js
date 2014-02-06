@@ -1,3 +1,4 @@
-var server = require('./app/server');
+var server = require('./app/server'),
+    CONFIG = require('config').server;
 
-server.start(8080);
+server.start(CONFIG.port);
