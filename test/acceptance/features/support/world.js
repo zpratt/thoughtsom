@@ -1,19 +1,38 @@
+/* jshint -W014 */
 'use strict';
 
 (function () {
-    var mongoose = require('mongoose'),
-        ThoughtModel = require('../../../../src/server/models/thought');
+    var DB_CONFIG = require('config').database,
+        DEFAULTS = require('config').Default,
+        mongoose = require('mongoose'),
+        connection,
+        ThoughtModel = require(process.env.HOME + DEFAULTS.projRoot + '/server/models/thought');
 
     var World = function World(callback) {
+        this.connectToDB = function (callback) {
+            if(!mongoose.connection.db) {
+                connection = mongoose.connect(
+                    'mongodb://'
+                        + DB_CONFIG.host
+                        + ':'
+                        + DB_CONFIG.port
+                        +  '/'
+                        + DB_CONFIG.name,
+                    callback
+                );
+            }
+            callback();
+        };
+
+        this.disconnectDB = function (callback) {
+            if(mongoose.connection.db) {
+                mongoose.connection.close(callback);
+            }
+            callback();
+        };
+
         this.createThought = function (callback) {
             var model;
-            mongoose.connect('mongodb://localhost:27017/thoughts',
-                function (err) {
-                    if (err) {
-//                        console.log('error connecting to mongo to save');
-                    }
-                }
-            );
 
             model = new ThoughtModel({
                 title: 'This is an article',
@@ -26,19 +45,13 @@
                 }
                 callback();
             });
+
         };
 
         this.clearDB = function clearDB(callback) {
-            mongoose.connect('mongodb://localhost:27017/thoughts',
-                function (err) {
-                    if (err) {
-//                        console.log('error connecting to mongo to remove');
-                    }
-                }
-            );
             ThoughtModel.collection.remove(function (err) {
                 if(err) {
-//                    console.log('Error occurred removing: ' + err);
+                    console.log('Error occurred removing: ' + err);
                 }
                 callback();
             });
