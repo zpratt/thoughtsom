@@ -34,19 +34,13 @@ module.exports = function (grunt) {
                 reporters: 'dots'
             }
         },
-        cucumberjs: {
-            src: 'test/acceptance/features/',
-            options: {
-                steps: 'test/acceptance/features/step_definitions/',
-                format: 'pretty'
-            }
-        },
         mochacov: {
             options: {
                 reporter: 'spec',
                 ui: 'bdd'
             },
-            all: ['test/unit/server/**/*.spec.js']
+            all: ['test/unit/server/**/*.spec.js'],
+            bdd_server: ['test/acceptance/server/*.spec.js']
         }
     });
 
@@ -55,12 +49,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-mocha-cov');
-    grunt.loadNpmTasks('grunt-cucumber');
 
     // Default task.
     grunt.registerTask('default', ['jshint']);
     grunt.registerTask('test', ['unit:server', 'unit:ui', 'bdd']);
     grunt.registerTask('unit:server', ['jshint', 'mochacov:all']);
     grunt.registerTask('unit:ui', ['jshint', 'karma']);
-    grunt.registerTask('bdd', ['cucumberjs']);
+    grunt.registerTask('bdd', ['mochacov:bdd_server']);
 };

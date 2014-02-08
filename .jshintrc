@@ -13,8 +13,12 @@
     "node": true,
     "globals": {
         "describe": false,
+        "before": false,
         "beforeEach": false,
+        "after": false,
         "afterEach": false,
+        "feature": false,
+        "scenarios": false,
         "it": false,
         "dump": false,
         "sinon": false,
