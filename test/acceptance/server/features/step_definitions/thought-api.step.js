@@ -17,8 +17,8 @@ module.exports = (function () {
         .given('A thought exists in the database', function (next) {
             next();
         })
-        .when('A "$http_method" on "$route" is performed', function (http_method, route, next) {
-            endpoint[http_method.toLowerCase()](route).expect(200, next);
+        .when('A GET on "$route" is performed', function (route, next) {
+            endpoint.get(route).expect(200, next);
         })
         .then('A thought is returned', function (next) {
             next();
