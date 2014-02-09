@@ -1,20 +1,26 @@
 /* jshint expr: true */
 /* jshint -W079 */
 
-var assert = require('chai').assert,
-    mongoose = require('mongoose'),
-    sinon = require('sinon'),
-    Repository = require('../../../../../src/server/repositories/thoughts'),
-    thoughtRepo,
-    thoughtRoute = require('../../../../../src/server/app/controllers/thought-route');
-
 describe('/thought endpoint test suite', function () {
+    'use strict';
+
+    var assert = require('chai').assert,
+        mongoose = require('mongoose'),
+        sinon = require('sinon'),
+        Repository = require('../../../../../src/server/repositories/thoughts'),
+        thoughtRepo,
+        thoughtRoute = require('../../../../../src/server/app/controllers/thought-route'),
+        existingId = 'some id';
+
     beforeEach(function () {
         sinon.stub(mongoose, 'connect');
         sinon.stub(Repository.prototype, 'findById', function (id) {
-            return {
-                id: id
-            };
+            if(id === existingId) {
+                return {
+                    id: existingId
+                };
+            }
+            return null;
         });
 
         thoughtRepo = new Repository();
@@ -25,36 +31,41 @@ describe('/thought endpoint test suite', function () {
     });
 
     it('should return a single thought given an id', function () {
-        var id = new mongoose.Types.ObjectId();
-
-        var thought = thoughtRoute.getById(
-            {
+        var req = {
                 params: {
-                    id: id
+                    id: existingId
                 }
             },
-            {
+            res = {
                 json: sinon.spy()
-            }
-        );
+            },
+            result;
+
+        thoughtRoute.getById(req, res);
+        result = res.json.getCall(0).args[0];
 
         sinon.assert.calledOnce(thoughtRepo.findById);
-        sinon.assert.calledWith(thoughtRepo.findById, id);
-        assert.isDefined(thought);
-        assert.equal(thought.id, id);
+        sinon.assert.calledWith(thoughtRepo.findById, existingId);
+        thoughtRepo.findById.calledBefore(res.json);
+
+        sinon.assert.calledOnce(res.json);
+        assert.equal(existingId, JSON.parse(result).id);
     });
 
-    it('should return null when an id is not passed', function () {
-        var thought = thoughtRoute.getById(
-            {
-                params: {}
+    it('should respond with a status code of 404 when a thought is not found', function () {
+        var req = {
+                params: {
+                    id: 'not found'
+                }
             },
-            {
-                json: sinon.spy()
-            }
-        );
+            res = {
+                send: sinon.spy()
+            },
+            expectedStatusCode = 404;
 
-        sinon.assert.notCalled(thoughtRepo.findById);
-        assert.isNull(thought);
+        thoughtRoute.getById(req, res);
+
+        sinon.assert.calledOnce(res.send);
+        sinon.assert.calledWith(res.send, expectedStatusCode);
     });
 });
