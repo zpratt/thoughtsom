@@ -24,6 +24,15 @@ module.exports = function (grunt) {
                 tasks: ['jshint:test', 'karma:all']
             }
         },
+        nodemon: {
+            dev: {
+                script: './src/server/index.js',
+                options: {
+                    delay: 5,
+                    nodeArgs: ['--debug']
+                }
+            }
+        },
         karma: {
             options: {
                 configFile: 'karma.conf.js'
@@ -46,11 +55,13 @@ module.exports = function (grunt) {
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-mocha-cov');
 
     // Default task.
-    grunt.registerTask('default', ['jshint']);
+    grunt.registerTask('default', ['jshint', 'test', 'server']);
+    grunt.registerTask('server', ['nodemon']);
     grunt.registerTask('test', ['unit:server', 'unit:ui', 'bdd']);
     grunt.registerTask('unit:server', ['jshint', 'mochacov:all']);
     grunt.registerTask('unit:ui', ['jshint', 'karma']);

@@ -51,7 +51,10 @@
     "config": "~0.4.35",
     "yaml": "~0.2.3",
     "yadda": "~0.9.8",
-    "karma-browserifast": "~0.1.1"
+    "karma-browserifast": "~0.1.1",
+    "nodemon": "~1.0.14",
+    "grunt-nodemon": "~0.2.0",
+    "casual": "~1.4.3"
   },
   "dependencies": {
     "mongoose": "~3.8.4",
