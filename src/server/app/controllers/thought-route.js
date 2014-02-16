@@ -1,27 +1,27 @@
 (function () {
     'use strict';
     var Repository = require('../../repositories/thoughts'),
-        thoughtRepo = new Repository();
+        thoughtRepo = new Repository(),
+        mongoose = require('mongoose');
 
     module.exports = {
         getById: function (req, res) {
-            var objectId = req.params.id,
-                result;
+            var reqId = req.params.id,
+                objectId,
+                queryPromise;
 
-            /* temporary until I add a known object ID to the
-             * thought-api scenario
-             */
-            if(!objectId) {
-                res.json({foo:'bar'});
-                return null;
-            }
+            objectId = mongoose.Types.ObjectId(reqId);
 
-            result = thoughtRepo.findById(objectId);
-            if (result) {
-                res.json(JSON.stringify(result));
-            } else {
-                res.send(404)
-            }
+            queryPromise = thoughtRepo.findById(objectId);
+
+            queryPromise.then(
+                function (item) {
+                    res.json(JSON.stringify(item));
+                },
+                function (err) {
+                    res.send(404);
+                }
+            );
         }
     };
 }());

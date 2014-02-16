@@ -17,8 +17,8 @@ module.exports = (function () {
         .given('A thought exists in the database', function (next) {
             next();
         })
-        .when('A GET on "$route" is performed', function (route, next) {
-            endpoint.get(route).expect(200, next);
+        .when('A GET on /thought with "$objectId" is performed', function (objectId, next) {
+            endpoint.get('/thought/' + objectId).expect(200, next);
         })
         .then('A thought is returned', function (next) {
             next();

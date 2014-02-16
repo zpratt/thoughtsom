@@ -18,13 +18,12 @@ describe("ThoughtRepository test suite", function () {
         sinon.stub(ThoughtModel, 'create', function (obj, callback) {
             createCallback = callback;
         });
-        sinon.stub(ThoughtModel, 'findById', function (id) {
+        sinon.stub(ThoughtModel, 'findById', function () {
             return {
-                exec: function (callback) {
-                    var promise = new mongoose.Promise();
-                    callback(null, {id: id});
-                    promise.resolve();
-                    return  promise;
+                exec: function () {
+                    return {
+                        then: function () { return; }
+                    };
                 }
             };
         });
@@ -56,14 +55,13 @@ describe("ThoughtRepository test suite", function () {
         sinon.assert.calledOnce(ThoughtModel.create);
     });
 
-    it('should return a single thought given an id', function () {
-        var spy = sinon.spy();
-        var id = new mongoose.Types.ObjectId();
-        var thought = repo.findById(id, spy);
+    it('should return a promise when findById is called with an objectId', function () {
+        var spy = sinon.spy(),
+            id = new mongoose.Types.ObjectId(),
+            resultPromise = repo.findById(id, spy);
 
         sinon.assert.calledOnce(ThoughtModel.findById);
 
-        assert.isDefined(thought);
-        assert.equal(thought.id, id);
+        assert.isFunction(resultPromise.then);
     });
 });

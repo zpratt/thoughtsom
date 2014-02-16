@@ -16,4 +16,4 @@ exports.start = function (port) {
 
 exports.app = app;
 
-app.get('/thought', thoughtRoute.getById);
+app.get('/thought/:id', thoughtRoute.getById);
