@@ -1,4 +1,6 @@
-var server = require('./app/server'),
-    CONFIG = require('config').server;
+(function () {
+    var CONFIG = require('config'),
+        server = require(process.env.HOME + CONFIG.Default.serverRoot + '/app/server');
 
-server.start(CONFIG.port);
+    server.start(CONFIG.server.port);
+}());
