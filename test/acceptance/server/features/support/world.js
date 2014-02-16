@@ -4,11 +4,16 @@
     'use strict';
     var DB_CONFIG = require('config').database,
         DEFAULTS = require('config').Default,
+        TESTVALS = require('config').TestVals,
         mongoose = require('mongoose'),
+        casual = require('casual'),
         connection,
+        primaryKeyCache = [],
         ThoughtModel = require(process.env.HOME + DEFAULTS.projRoot + '/server/models/thought');
 
     var World = function World() {
+        var context = this;
+
         this.connectToDB = function (done) {
             if(!mongoose.connection.db) {
                 connection = mongoose.connect(
@@ -32,11 +37,15 @@
         };
 
         this.createThought = function (done) {
-            var model;
+            var model,
+                objectId = context.stringToObjectId(TESTVALS.knownObjectId);
+
+            primaryKeyCache.push(objectId);
 
             model = new ThoughtModel({
-                title: 'This is an article',
-                body: 'This is an article body. Imagine you are reading well written prose.'
+                _id: objectId,
+                title: casual.title,
+                body: casual.text
             });
 
             model.save(function (err, model) {
@@ -46,6 +55,16 @@
                 done();
             });
 
+        };
+
+        this.getThoughtId = function () {
+            var index = casual.integer(0, primaryKeyCache.length - 1);
+
+            return primaryKeyCache[index];
+        };
+
+        this.stringToObjectId = function(str) {
+            return mongoose.Types.ObjectId(str);
         };
 
         this.clearDB = function clearDB(done) {
