@@ -1,6 +1,10 @@
 Default:
   projRoot: '/development/node/thoughtsom/src'
+  serverRoot: '/development/node/thoughtsom/src/server'
   testRoot: '/development/node/thoughtsom/test'
+
+TestVals:
+  knownObjectId: '52ffef5e3242c4a82909c53f'
 
 database:
   host: localhost
