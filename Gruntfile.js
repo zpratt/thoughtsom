@@ -47,7 +47,7 @@ module.exports = function (grunt) {
                 reporter: 'spec',
                 ui: 'bdd'
             },
-            all: ['test/unit/server/**/*.spec.js'],
+            unit: ['test/unit/server/**/*.spec.js'],
             bdd_server: ['test/acceptance/server/*.spec.js']
         }
     });
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'test', 'server']);
     grunt.registerTask('server', ['nodemon']);
     grunt.registerTask('test', ['unit:server', 'unit:ui', 'bdd']);
-    grunt.registerTask('unit:server', ['jshint', 'mochacov:all']);
+    grunt.registerTask('unit:server', ['jshint', 'mochacov:unit']);
     grunt.registerTask('unit:ui', ['jshint', 'karma']);
     grunt.registerTask('bdd', ['mochacov:bdd_server']);
 };
