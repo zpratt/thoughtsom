@@ -1,5 +1,5 @@
 {
-  "name": "thoughts-v2",
+  "name": "Thought collector with self organizing map",
   "version": "0.0.1",
   "authors": [
     "zach pratt <zach@attackofzach.com>"
@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "lodash": "~2.4.1",
-    "jquery": "~2.0.3"
+    "jquery": "~2.0.3",
+    "backbone": "~1.1.2"
   }
 }

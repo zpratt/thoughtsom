@@ -13,6 +13,7 @@
     "node": true,
     "globals": {
         "describe": false,
+        "define": false,
         "before": false,
         "beforeEach": false,
         "after": false,
