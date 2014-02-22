@@ -3,5 +3,8 @@ node_js:
   - "0.10"
 services:
   - mongodb
+env:
+  global:
+    - NODE_ENV=travisci
 before_script:
   - npm install -g grunt-cli
