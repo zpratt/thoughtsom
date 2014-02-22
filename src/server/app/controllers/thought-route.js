@@ -22,6 +22,27 @@
                     res.send(404);
                 }
             );
+        },
+
+        create: function (req, res) {
+            var savePromise;
+            if (req.body) {
+                savePromise = thoughtRepo.save(req.body);
+                savePromise.then(function (thought) {
+                        res.status(201);
+                        res.json(
+                            [
+                                {
+                                    href: '/thought/' + thought._id,
+                                    rel: 'self',
+                                    method: 'GET'
+                                }
+                            ]
+                        );
+                });
+            } else {
+                res.status(400);
+            }
         }
     };
 }());

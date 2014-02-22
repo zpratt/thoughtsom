@@ -9,13 +9,43 @@ describe('/thought endpoint test suite', function () {
         DEFAULTS = require('config').Default,
         TESTPREFIX = process.env.HOME + DEFAULTS.testRoot,
         SRCPREFIX = process.env.HOME + DEFAULTS.projRoot,
+        casual = require('casual'),
         proxyquire = require('proxyquire'),
         mongooseStub = require(TESTPREFIX + '/helpers/stubs/mongooseStub').mongoose,
         Repository = require(SRCPREFIX + '/server/repositories/thoughts'),
         thoughtRoute = proxyquire(SRCPREFIX + '/server/app/controllers/thought-route', {
             'mongoose': mongooseStub
         }),
-        shouldFindMatch;
+        shouldFindMatch,
+        saveCallback;
+
+    function before () {
+        sinon.spy(mongooseStub.Types, 'ObjectId');
+        sinon.stub(Repository.prototype, 'findById', function (id) {
+            return {
+                then: function (successCb, failureCb) {
+                    if (shouldFindMatch) {
+                        successCb({ _id: id });
+                    } else {
+                        failureCb('record not found');
+                    }
+                }
+            };
+        });
+        sinon.stub(Repository.prototype, 'save').returns(
+            {
+                then: function (callback) {
+                    saveCallback = callback;
+                }
+            }
+        );
+    }
+
+    function after () {
+        mongooseStub.Types.ObjectId.restore();
+        Repository.prototype.findById.restore();
+        Repository.prototype.save.restore();
+    }
 
     it('should return a single thought given an id', function () {
         var existingId = 'some id',
@@ -68,22 +98,47 @@ describe('/thought endpoint test suite', function () {
         sinon.assert.calledWith(res.send, expectedStatusCode);
     });
 
-    beforeEach(function () {
-        sinon.spy(mongooseStub.Types, 'ObjectId');
-        sinon.stub(Repository.prototype, 'findById', function (id) {
-            return {
-                then: function (successCb, failureCb) {
-                    if (shouldFindMatch) {
-                        successCb({ _id: id });
-                    } else {
-                        failureCb('record not found');
-                    }
-                }
+    it('should create a new thought', function () {
+        var thought = {
+                title: casual.title,
+                body: casual.text
+            },
+            req = {
+                body: thought
+            },
+            res = {
+                json: sinon.stub(),
+                status: sinon.stub()
+            },
+            jsonArgs;
+
+        thoughtRoute.create(req, res);
+
+        sinon.assert.calledOnce(Repository.prototype.save);
+        sinon.assert.calledWith(Repository.prototype.save, thought);
+
+        saveCallback(thought);
+        sinon.assert.calledOnce(res.status);
+        sinon.assert.calledWith(res.status, 201);
+        sinon.assert.calledOnce(res.json);
+        jsonArgs = res.json.getCall(0).args[0];
+        assert.isDefined(jsonArgs[0].href);
+    });
+
+    it('should set and error status code when attempting to create an invalid thought', function () {
+        var req = {
+            },
+            res = {
+                status: sinon.stub()
             };
-        });
+
+        thoughtRoute.create(req, res);
+
+        sinon.assert.notCalled(Repository.prototype.save);
+        sinon.assert.calledOnce(res.status);
+        sinon.assert.calledWith(res.status, 400);
     });
-    afterEach(function () {
-        mongooseStub.Types.ObjectId.restore();
-        Repository.prototype.findById.restore();
-    });
+
+    beforeEach(before);
+    afterEach(after);
 });

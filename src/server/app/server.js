@@ -17,3 +17,4 @@ exports.start = function (port) {
 exports.app = app;
 
 app.get('/thought/:id', thoughtRoute.getById);
+app.post('/thought', [express.json(), express.urlencoded()], thoughtRoute.create);
