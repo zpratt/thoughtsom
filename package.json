@@ -55,7 +55,11 @@
     "nodemon": "~1.0.14",
     "grunt-nodemon": "~0.2.0",
     "casual": "~1.4.3",
-    "proxyquire": "~0.5.2"
+    "proxyquire": "~0.5.2",
+    "karma-coverage": "~0.2.0",
+    "grunt-karma-coveralls": "~2.3.0",
+    "coveralls": "~2.8.0",
+    "blanket": "~1.1.6"
   },
   "dependencies": {
     "mongoose": "~3.8.4",

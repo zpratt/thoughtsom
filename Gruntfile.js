@@ -50,6 +50,11 @@ module.exports = function (grunt) {
                 reporter: 'spec',
                 ui: 'bdd'
             },
+            coverage: {
+                options: {
+                    coveralls: true
+                }
+            },
             unit: ['test/unit/server/**/*.spec.js'],
             bdd_server: ['test/acceptance/server/*.spec.js']
         }
