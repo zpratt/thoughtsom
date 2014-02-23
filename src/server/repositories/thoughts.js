@@ -16,7 +16,7 @@
             if(err) {
                 console.log('Error performing ' + errType + 'on model: ' + model.title);
             }
-        }
+        };
     }
 
     _.extend(Repository.prototype, {

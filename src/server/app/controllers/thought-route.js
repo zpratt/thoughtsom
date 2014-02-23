@@ -18,7 +18,7 @@
                 function (item) {
                     res.json(JSON.stringify(item));
                 },
-                function (err) {
+                function () {
                     res.send(404);
                 }
             );
