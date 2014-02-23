@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/zpratt/thoughtsom.png?branch=master)](https://travis-ci.org/zpratt/thoughtsom)
+[![Code Climate](https://codeclimate.com/github/zpratt/thoughtsom.png)](https://codeclimate.com/github/zpratt/thoughtsom)
 ## Release History
 * Updates
   * 02/22/14
