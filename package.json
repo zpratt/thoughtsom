@@ -56,14 +56,22 @@
     "grunt-nodemon": "~0.2.0",
     "casual": "~1.4.3",
     "proxyquire": "~0.5.2",
-    "karma-coverage": "~0.2.0",
-    "grunt-karma-coveralls": "~2.3.0",
     "coveralls": "~2.8.0",
-    "blanket": "~1.1.6"
+    "blanket": "~1.1.6",
+    "mocha-term-cov-reporter": "~0.2.0",
+    "lcov-parse": "0.0.6",
+    "mocha-lcov-reporter": "0.0.1"
   },
   "dependencies": {
     "mongoose": "~3.8.4",
     "lodash": "~2.4.1",
     "express": "~3.4.8"
+  },
+  "config": {
+      "blanket": {
+          "pattern": [
+              "src/**/*.js"
+          ]
+      }
   }
 }
