@@ -1,6 +1,7 @@
 module.exports = (function () {
+    'use strict';
     var mainDir = '/development/node/thoughtsom',
-        cwd = process.env.BUILD_DIR;
+        cwd = process.env.HOME;
 
     if (!cwd) {
         cwd = '';
@@ -8,8 +9,8 @@ module.exports = (function () {
 
     return {
         Default: {
-            projRoot: mainDir + '/src',
-            serverRoot: mainDir + '/src/server',
+            projRoot: cwd + mainDir + '/src',
+            serverRoot: cwd + mainDir + '/src/server',
             testRoot: cwd + mainDir + '/test'
         },
         TestVals: {

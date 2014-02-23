@@ -15,15 +15,11 @@
     after(theWorld.disconnectDB);
 
     feature(
-        process.env.HOME +
-            CONFIG.testRoot +
-            '/acceptance/server/features/thought-api.feature',
+        CONFIG.testRoot + '/acceptance/server/features/thought-api.feature',
         function(feature) {
 
             var library = require(
-                process.env.HOME +
-                    CONFIG.testRoot +
-                    '/acceptance/server/features/step_definitions/thought-api.step.js'
+                CONFIG.testRoot + '/acceptance/server/features/step_definitions/thought-api.step.js'
             );
             var yadda = new Yadda.Yadda(library);
 

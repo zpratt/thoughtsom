@@ -9,7 +9,7 @@
         casual = require('casual'),
         connection,
         primaryKeyCache = [],
-        ThoughtModel = require(process.env.HOME + DEFAULTS.projRoot + '/server/models/thought');
+        ThoughtModel = require(DEFAULTS.serverRoot + '/models/thought');
 
     var World = function World() {
         var context = this;

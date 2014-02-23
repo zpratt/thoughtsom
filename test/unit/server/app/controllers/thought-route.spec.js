@@ -7,13 +7,11 @@ describe('/thought endpoint test suite', function () {
     var assert = require('chai').assert,
         sinon = require('sinon'),
         DEFAULTS = require('config').Default,
-        TESTPREFIX = process.env.HOME + DEFAULTS.testRoot,
-        SRCPREFIX = process.env.HOME + DEFAULTS.projRoot,
         casual = require('casual'),
         proxyquire = require('proxyquire'),
-        mongooseStub = require(TESTPREFIX + '/helpers/stubs/mongooseStub').mongoose,
-        Repository = require(SRCPREFIX + '/server/repositories/thoughts'),
-        thoughtRoute = proxyquire(SRCPREFIX + '/server/app/controllers/thought-route', {
+        mongooseStub = require(DEFAULTS.testRoot + '/helpers/stubs/mongooseStub').mongoose,
+        Repository = require(DEFAULTS.serverRoot + '/repositories/thoughts'),
+        thoughtRoute = proxyquire(DEFAULTS.serverRoot + '/app/controllers/thought-route', {
             'mongoose': mongooseStub
         }),
         shouldFindMatch,
