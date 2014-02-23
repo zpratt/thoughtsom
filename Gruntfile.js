@@ -61,22 +61,7 @@ module.exports = function (grunt) {
                     reporter: 'spec',
                     files: ['test/acceptance/server/*.spec.js']
                 }
-            },
-            coverage: {
-                options: {
-                    reporter: 'mocha-term-cov-reporter',
-                    coverage: true
-                }
             }
-//            ,
-//            coveralls: {
-//                options: {
-//                    coveralls: {
-//                        serviceName: 'travis-ci'
-//                    },
-//                    reporter: 'mocha-lcov-reporter'
-//                }
-//            }
         }
     });
 
@@ -90,8 +75,7 @@ module.exports = function (grunt) {
     // Default task.
     grunt.registerTask('default', ['jshint', 'test', 'server']);
     grunt.registerTask('server', ['nodemon']);
-//    grunt.registerTask('test', ['unit:server', 'unit:ui', 'bdd', 'mochacov:coverage', 'mochacov:coveralls']);
-    grunt.registerTask('test', ['unit:server', 'unit:ui', 'bdd', 'mochacov:coverage']);
+    grunt.registerTask('test', ['unit:server', 'unit:ui', 'bdd']);
     grunt.registerTask('unit:server', ['jshint', 'mochacov:unit']);
     grunt.registerTask('unit:ui', ['jshint', 'karma']);
     grunt.registerTask('bdd', ['mochacov:bdd_server']);
