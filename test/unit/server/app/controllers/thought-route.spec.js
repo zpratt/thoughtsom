@@ -137,6 +137,19 @@ describe('/thought endpoint test suite', function () {
         sinon.assert.calledWith(res.status, 400);
     });
 
+    it('should return a 200 status code after a successful PUT', function () {
+         var req = {
+            },
+            res = {
+                send: sinon.stub()
+            };
+
+        thoughtRoute.update(req, res);
+
+        sinon.assert.calledOnce(res.send);
+        sinon.assert.calledWith(res.send, 200);
+    });
+
     beforeEach(before);
     afterEach(after);
 });

@@ -43,6 +43,10 @@
             } else {
                 res.status(400);
             }
+        },
+
+        update: function (req, res) {
+            res.send(200);
         }
     };
 }());

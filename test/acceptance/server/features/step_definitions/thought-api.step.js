@@ -18,10 +18,10 @@ module.exports = (function () {
 
     return English.library(dictionary)
 
-        .given('A thought exists in the database', function (next) {
+        .given('a thought exists in the database', function (next) {
             next();
         })
-        .when('A GET on /thought with "$objectId" is performed', function (objectId, next) {
+        .when('a GET on /thought with "$objectId" is performed', function (objectId, next) {
             endpoint
                 .get('/thought/' + objectId)
                 .expect(200)
@@ -35,14 +35,14 @@ module.exports = (function () {
                     next();
                 });
         })
-        .then('A thought is returned', function (next) {
+        .then('a thought is returned', function (next) {
             next();
         })
 
-        .given('A user', function (next) {
+        .given('a user', function (next) {
             next();
         })
-        .when('A POST request on /thought is performed', function (next) {
+        .when('a POST request on /thought is performed', function (next) {
             endpoint
                 .post('/thought')
                 .send({
@@ -57,10 +57,29 @@ module.exports = (function () {
                     next();
                 });
         })
-        .then('A thought is persisted', function (next) {
+        .then('a thought is persisted', function (next) {
             next();
         })
         .then('The ObjectId is returned', function (next) {
+            next();
+        })
+
+        .when('a PUT on /thought with "$objectId" is performed', function (objectId, next) {
+            endpoint
+                .put('/thought/' + objectId)
+                .send({
+                    title: casual.title,
+                    body: casual.text
+                })
+                .set('Accept', 'application/json')
+                .set('Content-Type', 'application/json')
+                .end(function (err, res) {
+                    expect(err).to.not.exist;
+                    expect(res.status).to.equal(200);
+                    next();
+                });
+        })
+        .then('a thought is updated', function (next) {
             next();
         });
 
