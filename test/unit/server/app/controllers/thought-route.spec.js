@@ -45,6 +45,12 @@ describe('/thought endpoint test suite', function () {
         Repository.prototype.save.restore();
     }
 
+    function assertResponseWith(res, expectedStatus, responseBody) {
+        sinon.assert.calledOnce(res.status);
+        sinon.assert.calledWith(res.status, expectedStatus);
+        sinon.assert.calledOnce(responseBody);
+    }
+
     it('should return a single thought given an id', function () {
         var existingId = 'some id',
             req = {
@@ -116,9 +122,8 @@ describe('/thought endpoint test suite', function () {
         sinon.assert.calledWith(Repository.prototype.save, thought);
 
         saveCallback(thought);
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledWith(res.status, 201);
-        sinon.assert.calledOnce(res.json);
+
+        assertResponseWith(res, 201, res.json);
         jsonArgs = res.json.getCall(0).args[0];
         assert.isDefined(jsonArgs[0].href);
     });
