@@ -51,7 +51,8 @@
     "grunt-nodemon": "~0.2.0",
     "casual": "~1.4.3",
     "proxyquire": "~0.5.2",
-    "coveralls": "~2.8.0"
+    "coveralls": "~2.8.0",
+    "grunt-docco": "~0.3.3"
   },
   "dependencies": {
     "mongoose": "~3.8.4",

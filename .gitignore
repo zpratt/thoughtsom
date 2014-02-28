@@ -1,5 +1,6 @@
 node_modules
 bower_components
+docs
 .idea
 .coveralls.yml
 config/runtime.json

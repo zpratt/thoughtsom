@@ -27,6 +27,14 @@ module.exports = function (grunt) {
                 tasks: ['jshint:test', 'karma:all']
             }
         },
+        docco: {
+            serverSrc: {
+                src: ['src/server/**/*.js'],
+                options: {
+                    output: 'docs/'
+                }
+            }
+        },
         nodemon: {
             dev: {
                 script: './src/server/index.js',
@@ -71,10 +79,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-mocha-cov');
+    grunt.loadNpmTasks('grunt-docco');
 
     // Default task.
     grunt.registerTask('default', ['jshint', 'test', 'server']);
     grunt.registerTask('server', ['nodemon']);
+    grunt.registerTask('doc', ['docco:serverSrc']);
     grunt.registerTask('test', ['unit:server', 'unit:ui', 'bdd']);
     grunt.registerTask('unit:server', ['jshint', 'mochacov:unit']);
     grunt.registerTask('unit:ui', ['jshint', 'karma']);
