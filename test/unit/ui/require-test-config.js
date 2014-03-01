@@ -17,7 +17,10 @@
             }
         },
         deps: [
-            '/base/test/unit/ui/fakeserver-example.spec.js'
+            '/base/src/ui/backend/thought-collection.js',
+
+            '/base/test/unit/ui/fakeserver-example.spec.js',
+            '/base/test/unit/ui/backend/thought-collection.spec.js'
         ],
         callback: window.__karma__.start
     });
