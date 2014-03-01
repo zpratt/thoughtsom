@@ -11,14 +11,12 @@ module.exports = function (config) {
 
             {pattern: 'test/acceptance/ui/features/thought-ui.feature', included: false},
 
-            'test/acceptance/ui/thought.spec.js'
 //            'test/unit/ui/require-test-config.js'
         ],
         exclude: [],
 
         preprocessors: {
-            'test/acceptance/ui/*.spec.js': 'browserify',
-            'test/acceptance/ui/features/step_definitions/*.step.js': 'browserify'
+            "/**/*.browserify": "browserify"
         },
         browserify: {
             debug: true,
