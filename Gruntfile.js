@@ -45,10 +45,13 @@ module.exports = function (grunt) {
             }
         },
         karma: {
-            options: {
-                configFile: 'karma.conf.js'
+            unit: {
+                configFile: 'karma.conf.js',
+                singleRun: true,
+                reporters: 'dots'
             },
-            all: {
+            bdd: {
+                configFile: 'karma-bdd.conf.js',
                 singleRun: true,
                 reporters: 'dots'
             }
@@ -85,8 +88,9 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'test', 'server']);
     grunt.registerTask('server', ['nodemon']);
     grunt.registerTask('doc', ['docco:serverSrc']);
-    grunt.registerTask('test', ['unit:server', 'unit:ui', 'bdd']);
-    grunt.registerTask('unit:server', ['jshint', 'mochacov:unit']);
-    grunt.registerTask('unit:ui', ['jshint', 'karma']);
-    grunt.registerTask('bdd', ['mochacov:bdd_server']);
+    grunt.registerTask('test', ['jshint', 'unit:server', 'unit:ui', 'bdd:server', 'bdd:ui']);
+    grunt.registerTask('unit:server', ['mochacov:unit']);
+    grunt.registerTask('unit:ui', ['karma:unit']);
+    grunt.registerTask('bdd:ui', ['karma:bdd']);
+    grunt.registerTask('bdd:server', ['mochacov:bdd_server']);
 };
