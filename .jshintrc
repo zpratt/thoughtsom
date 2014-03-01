@@ -24,6 +24,7 @@
         "dump": false,
         "sinon": false,
         "expect": false,
+        "assert": false,
         "_": false,
         "$": false
     }

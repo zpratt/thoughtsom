@@ -52,7 +52,8 @@
     "casual": "~1.4.3",
     "proxyquire": "~0.5.2",
     "coveralls": "~2.8.0",
-    "grunt-docco": "~0.3.3"
+    "grunt-docco": "~0.3.3",
+    "browserify": "~3.31.2"
   },
   "dependencies": {
     "mongoose": "~3.8.4",
