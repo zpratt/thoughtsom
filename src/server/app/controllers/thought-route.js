@@ -1,18 +1,16 @@
 (function () {
     'use strict';
+
     var Repository = require('../../repositories/thoughts'),
         thoughtRepo = new Repository(),
-        mongoose = require('mongoose');
+        _ = require('lodash');
 
     module.exports = {
         getById: function (req, res) {
             var reqId = req.params.id,
-                objectId,
                 queryPromise;
 
-            objectId = mongoose.Types.ObjectId(reqId);
-
-            queryPromise = thoughtRepo.findById(objectId);
+            queryPromise = thoughtRepo.findById(reqId);
 
             queryPromise.then(
                 function (item) {
@@ -46,7 +44,18 @@
         },
 
         update: function (req, res) {
-            res.send(200);
+            var queryPromise,
+                thought = {
+                    _id: req.params.id
+                };
+
+            queryPromise = thoughtRepo.update(_.merge(thought, req.body));
+
+            queryPromise.then(
+                function (thought) {
+                    res.json(thought);
+                }
+            );
         }
     };
 }());

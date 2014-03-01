@@ -1,6 +1,5 @@
-'use strict';
-
 (function() {
+    'use strict';
     var mongoose = require('mongoose'),
         thoughtSchema = require('../schemas/thought-schema').thought_schema,
         Thought = mongoose.model('thoughts', thoughtSchema);

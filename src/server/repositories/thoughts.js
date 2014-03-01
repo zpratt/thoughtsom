@@ -19,25 +19,40 @@
         };
     }
 
+    function stringToObjectId(id) {
+        return mongoose.Types.ObjectId(id);
+    }
+
     _.extend(Repository.prototype, {
         getModel: function () {
             return this.model;
         },
-
         findById: function (id) {
-            var result = null,
-                query;
+            var query,
+                objectId = stringToObjectId(id);
 
-            query = this.model.findById(id);
-            return query.exec(function (err, thought) {
+            query = this.model.findById(objectId);
+            return query.exec(function (err) {
                 if (err) {
                     console.log('error in findById');
                 }
-                result = thought;
             });
         },
         save: function (thought) {
             return this.model.create(thought, handleError('save'));
+        },
+        update: function (thought) {
+            var query,
+                objectId = stringToObjectId(thought._id);
+
+            query = this.model.findOneAndUpdate({_id: objectId}, _.omit(thought, '_id'));
+
+            return query.exec(function (err) {
+                if (err) {
+                    console.log('error in update');
+                    console.log(err);
+                }
+            });
         }
     });
 
