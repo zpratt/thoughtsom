@@ -6,7 +6,7 @@
         World = require('./features/support/world').World,
         theWorld = new World();
 
-    Yadda.plugins.mocha();
+    Yadda.plugins.mocha.AsyncScenarioLevelPlugin.init();
 
     before(theWorld.connectToDB);
     beforeEach(theWorld.createThought);
@@ -14,7 +14,7 @@
     afterEach(theWorld.clearDB);
     after(theWorld.disconnectDB);
 
-    feature(
+    featureFile(
         CONFIG.testRoot + '/acceptance/server/features/thought-api.feature',
         function(feature) {
 

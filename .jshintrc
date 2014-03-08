@@ -19,6 +19,7 @@
         "after": false,
         "afterEach": false,
         "feature": false,
+        "featureFile": false,
         "scenarios": false,
         "it": false,
         "dump": false,
