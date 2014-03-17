@@ -1,20 +1,19 @@
 /* jshint expr: true */
 (function () {
     'use strict';
+    var ThoughtCollection = require('../../../../src/ui/backend/thought-collection');
 
-    define(['backbone', '/base/src/ui/backend/thought-collection.js'], function (Backbone, ThoughtCollection) {
-        describe("Thought Collection", function () {
+    describe("Thought Collection", function () {
 
-            beforeEach(function () {
-            });
-            afterEach(function () {
-            });
+        beforeEach(function () {
+        });
+        afterEach(function () {
+        });
 
-            it('should should create a new instance of a Backbone.Collection', function () {
-                var collection = new ThoughtCollection();
+        it('should should create a new instance of a Backbone.Collection', function () {
+            var collection = new ThoughtCollection();
 
-                assert.instanceOf(collection, Backbone.Collection);
-            });
+            assert.instanceOf(collection, Backbone.Collection);
         });
     });
 }());

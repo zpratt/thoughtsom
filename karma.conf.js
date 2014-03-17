@@ -1,30 +1,32 @@
 module.exports = function (config) {
     config.set({
         basePath: '.',
-        frameworks: ['mocha', 'requirejs', 'chai', 'sinon'],
+        frameworks: ['mocha', 'commonjs', 'chai', 'sinon'],
         files: [
-            'bower_components/jquery/jquery.js',
-            {pattern: 'bower_components/lodash/dist/lodash.underscore.min.js', included: false},
-            {pattern: 'bower_components/backbone/backbone.js', included: false},
+            {pattern: 'bower_components/lodash/dist/lodash.underscore.js'},
+            {pattern: 'bower_components/jquery/dist/jquery.min.js'},
+            {pattern: 'bower_components/backbone/backbone.js'},
 
-            {pattern: 'src/ui/**/*.js', included: false},
-
-            {pattern: 'test/unit/ui/**/*.spec.js', included: false},
-            {pattern: 'test/unit/ui/require-test-config.js', included: true}
+            {pattern: 'src/ui/backend/*.js'},
+            {pattern: 'test/unit/ui/backend/*.spec.js'}
         ],
         exclude: [],
+        preprocessors: {
+            'src/ui/backend/*.js': ['commonjs'],
+            'test/unit/ui/backend/*.spec.js': ['commonjs']
+        },
 
         reporters: ['dots'],
         port: 9999,
         colors: true,
-        logLevel: config.LOG_WARN,
+        logLevel: config.LOG_INFO,
         autoWatch: false,
         browsers: ['PhantomJS'],
         plugins: [
             'karma-chai',
             'karma-mocha',
+            'karma-commonjs',
             'karma-phantomjs-launcher',
-            'karma-requirejs',
             'karma-sinon'
         ],
         captureTimeout: 6000,

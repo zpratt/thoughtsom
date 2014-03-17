@@ -1,7 +1,5 @@
-(function () {
+module.exports = (function () {
     'use strict';
 
-    define(['backbone'], function (Backbone) {
-        return Backbone.Collection.extend({});
-    });
+    return Backbone.Collection.extend({});
 }());
