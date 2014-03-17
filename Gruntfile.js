@@ -88,7 +88,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'test', 'server']);
     grunt.registerTask('server', ['nodemon']);
     grunt.registerTask('doc', ['docco:serverSrc']);
-    grunt.registerTask('test', ['jshint', 'unit:server', 'unit:ui', 'bdd:server']);
+    grunt.registerTask('test', ['jshint', 'unit:server', 'unit:ui', 'bdd:server', 'bdd:ui']);
     grunt.registerTask('unit:server', ['mochacov:unit']);
     grunt.registerTask('unit:ui', ['karma:unit']);
     grunt.registerTask('bdd:ui', ['karma:bdd']);

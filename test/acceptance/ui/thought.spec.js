@@ -10,7 +10,7 @@ module.export = (function () {
         loaderFeature = $.get('base/test/acceptance/ui/features/thought-ui.feature').responseText,
         feature = parser.parse(loaderFeature);
 
-    Yadda.plugins.mocha();
+    Yadda.plugins.mocha.AsyncScenarioLevelPlugin.init();
 
     scenarios(feature.scenarios, function (scenario, done) {
         yadda.yadda(scenario.steps, done);

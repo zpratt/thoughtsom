@@ -3,20 +3,18 @@ module.exports = function (config) {
         basePath: '.',
         frameworks: ['mocha', 'chai', 'sinon', 'browserify'],
         files: [
-            'bower_components/jquery/jquery.js',
-            {pattern: 'bower_components/lodash/dist/lodash.underscore.min.js', included: false},
-            {pattern: 'bower_components/backbone/backbone.js', included: false},
+            {pattern: 'bower_components/jquery/dist/jquery.min.js'},
+            {pattern: 'bower_components/lodash/dist/lodash.underscore.min.js'},
+            {pattern: 'bower_components/backbone/backbone.js'},
 
             {pattern: 'src/ui/backend/*.js', included: false},
 
             {pattern: 'test/acceptance/ui/features/thought-ui.feature', included: false},
-
-//            'test/unit/ui/require-test-config.js'
         ],
         exclude: [],
 
         preprocessors: {
-            "/**/*.browserify": "browserify"
+            '/**/*.browserify': 'browserify'
         },
         browserify: {
             debug: true,
@@ -29,7 +27,7 @@ module.exports = function (config) {
         reporters: ['progress'],
         port: 9999,
         colors: true,
-        logLevel: config.LOG_WARN,
+        logLevel: config.LOG_INFO,
         autoWatch: false,
         browsers: ['PhantomJS'],
         plugins: [

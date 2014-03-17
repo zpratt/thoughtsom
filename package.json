@@ -53,7 +53,8 @@
     "coveralls": "~2.8.0",
     "grunt-docco": "~0.3.3",
     "browserify": "^3.32.0",
-    "karma-commonjs": "0.0.6"
+    "karma-commonjs": "0.0.6",
+    "karma-browserifast": "~0.3.0"
   },
   "dependencies": {
     "mongoose": "^3.8.8",

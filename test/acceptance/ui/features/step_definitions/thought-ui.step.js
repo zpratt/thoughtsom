@@ -2,10 +2,10 @@
 
 module.exports = (function () {
     'use strict';
-    var English = require('yadda').localisation.English;
-    var Dictionary = require('yadda').Dictionary;
-
-    var dictionary = new Dictionary()
+    var ThoughtCollection = require('../../../../../src/ui/backend/thought-collection'),
+        English = require('yadda').localisation.English,
+        Dictionary = require('yadda').Dictionary,
+        dictionary = new Dictionary()
         .define('title', /([^"]*)/)
         .define('body', /([^"]*)/)
         .define('number', /(\d+)/);
@@ -13,6 +13,8 @@ module.exports = (function () {
     return English.library(dictionary)
 
         .given('a user', function (next) {
+            var collection = new ThoughtCollection();
+            expect(collection).to.be.instanceof(Backbone.Collection);
             next();
         })
 
