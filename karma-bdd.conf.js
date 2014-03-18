@@ -7,8 +7,6 @@ module.exports = function (config) {
             {pattern: 'bower_components/lodash/dist/lodash.underscore.min.js'},
             {pattern: 'bower_components/backbone/backbone.js'},
 
-            {pattern: 'src/ui/backend/*.js', included: false},
-
             {pattern: 'test/acceptance/ui/features/thought-ui.feature', included: false},
         ],
         exclude: [],
@@ -19,15 +17,22 @@ module.exports = function (config) {
         browserify: {
             debug: true,
             files: [
+                'src/ui/backend/*.js',
                 'test/acceptance/ui/*.spec.js',
                 'test/acceptance/ui/features/step_definitions/*.step.js'
             ]
         },
 
+        client: {
+            mocha: {
+                ui: 'bdd'
+            }
+        },
+
         reporters: ['progress'],
         port: 9999,
         colors: true,
-        logLevel: config.LOG_INFO,
+        logLevel: config.LOG_WARN,
         autoWatch: false,
         browsers: ['PhantomJS'],
         plugins: [

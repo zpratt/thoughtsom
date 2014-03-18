@@ -1,8 +1,8 @@
 Feature: As a user, I want a user interface enable me to create and organize my thoughts
 
-  Scenario: Create a thought
+  Scenario: List of Thoughts
 
     Given a user
-    When a POST request on /thought is performed
-    Then a thought is persisted
+    When a GET request on /thought is performed
+    Then a list of thoughts is returned
 
