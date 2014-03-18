@@ -36,7 +36,7 @@ module.exports = (function () {
         })
 
         .when('a GET request on /thought is performed', function (next) {
-            var fetchMap = {
+            collection.fetch({
                     success: function (res) {
                         response = res;
                         next();
@@ -44,9 +44,7 @@ module.exports = (function () {
                     failure: function () {
                         next();
                     }
-                };
-
-            collection.fetch(fetchMap);
+                });
 
             server.respond();
         })
