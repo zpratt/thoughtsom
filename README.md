@@ -3,6 +3,12 @@
 [![Dependency Status](https://david-dm.org/zpratt/thoughtsom.svg?theme=shields.io)](https://david-dm.org/zpratt/thoughtsom)
 ## Release History
 * Updates
+  * 03/18/14
+    * Updated UI modules to use CommonJS module format
+    * Added Yadda configuration and feature to begin UI integration testing
+    * Initial integration tests will test views to Backbone as the integration boundary
+    * Using sinon fakeServer to stub endpoint interactions
+    * I plan to use ReactJS to implement the view layer
   * 02/22/14
     * Added example UI test to ensure that karma, require, chai, and initial runtime deps are working together.
     * Added a new POST route to /thought to create new thoughts. This includes a new scenario and associated tests.
