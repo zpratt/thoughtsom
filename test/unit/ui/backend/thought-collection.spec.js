@@ -1,9 +1,9 @@
 /* jshint expr: true */
 (function () {
     'use strict';
-    var ThoughtCollection = require('../../../../src/ui/backend/thought-collection');
 
     describe("Thought Collection", function () {
+        var ThoughtCollection = require('../../../../src/ui/backend/thought-collection');
 
         beforeEach(function () {
         });
