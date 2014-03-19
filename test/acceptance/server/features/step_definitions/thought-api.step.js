@@ -27,7 +27,7 @@ module.exports = (function () {
                 .expect(200)
                 .expect('Content-Type', /json/)
                 .end(function (err, res) {
-                    var id = JSON.parse(res.body)._id;
+                    var id = res.body._id;
 
                     expect(err).to.not.exist;
                     expect(id).to.equal(TESTVALS.knownObjectId);

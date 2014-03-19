@@ -14,7 +14,7 @@
 
             queryPromise.then(
                 function (item) {
-                    res.json(JSON.stringify(item));
+                    res.json(item);
                 },
                 function () {
                     res.send(404);

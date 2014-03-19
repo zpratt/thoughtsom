@@ -103,7 +103,7 @@
 
             thoughtRoute.getById(req, res);
 
-            result = res.json.getCall(0).args[0];
+            result = JSON.stringify(res.json.getCall(0).args[0]);
 
             sinon.assert.calledOnce(Repository.prototype.findById);
             sinon.assert.calledWith(Repository.prototype.findById, existingId);
