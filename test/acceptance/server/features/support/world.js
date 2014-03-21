@@ -52,7 +52,9 @@
                 if (err) {
                     console.log('error saving model: ' + JSON.stringify(model));
                 }
-                done();
+                if (done) {
+                    done();
+                }
             });
 
         };
