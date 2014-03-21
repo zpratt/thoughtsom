@@ -21,6 +21,7 @@
     exports.app = app;
 
     app.get('/thought/:id', thoughtRoute.getById);
+    app.get('/thought', thoughtRoute.getAll);
     app.post('/thought', [express.json(), express.urlencoded()], thoughtRoute.create);
     app.put('/thought/:id', [express.json(), express.urlencoded()], thoughtRoute.update);
 }());

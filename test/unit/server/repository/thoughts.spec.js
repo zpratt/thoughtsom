@@ -8,12 +8,12 @@
         sinon = require('sinon'),
         DEFAULTS = require('config').Default,
         _ = require('lodash'),
-        mongoose = require('mongoose'),
-        ThoughtModel = require(DEFAULTS.serverRoot + '/models/thought'),
-        ThoughtsRepo = require(DEFAULTS.serverRoot + '/repositories/thoughts');
+        mongoose = require('mongoose');
 
-    describe("ThoughtRepository test suite", function () {
-        var repo,
+    describe('ThoughtRepository test suite', function () {
+        var ThoughtModel = require(DEFAULTS.serverRoot + '/models/thought'),
+            ThoughtsRepo = require(DEFAULTS.serverRoot + '/repositories/thoughts'),
+            repo,
             createCallback,
             promiseFake;
 
@@ -40,6 +40,9 @@
             sinon.stub(ThoughtModel, 'findOneAndUpdate', function () {
                 return promiseFake;
             });
+            sinon.stub(ThoughtModel, 'find', function () {
+                return promiseFake;
+            });
 
             repo = new ThoughtsRepo();
         });
@@ -50,6 +53,7 @@
             ThoughtModel.create.restore();
             ThoughtModel.findById.restore();
             ThoughtModel.findOneAndUpdate.restore();
+            ThoughtModel.find.restore();
             repo = null;
             createCallback = null;
         });
@@ -73,6 +77,16 @@
                 resultPromise = repo.findById(id);
 
             sinon.assert.calledOnce(ThoughtModel.findById);
+            sinon.assert.calledWith(ThoughtModel.findById, id);
+
+            assert.isFunction(resultPromise.then);
+        });
+
+        it('should return a promise when findAll is called', function () {
+            var resultPromise = repo.findAll();
+
+            sinon.assert.calledOnce(ThoughtModel.find);
+            sinon.assert.calledWith(ThoughtModel.find, {});
 
             assert.isFunction(resultPromise.then);
         });

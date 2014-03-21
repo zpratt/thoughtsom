@@ -38,6 +38,17 @@
                 }
             });
         },
+        findAll: function () {
+            var query;
+
+            query = this.model.find({});
+
+            return query.exec(function (err) {
+                if (err) {
+                    console.log('error in findAll');
+                }
+            });
+        },
         save: function (thought) {
             return this.model.create(thought, handleError('save'));
         },

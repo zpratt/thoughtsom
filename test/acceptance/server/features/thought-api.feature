@@ -6,6 +6,12 @@ Feature: As a user, I want to be able to create thoughts through the REST api
     When a GET on /thought with "52ffef5e3242c4a82909c53f" is performed
     Then a thought is returned
 
+  Scenario: Retrieve a list of thoughts
+
+    Given thoughts exist in the database
+    When a GET request to /thought is made with an Accept header of "application/json"
+    Then a list of thoughts is returned
+
   Scenario: Create a thought
 
     Given a user

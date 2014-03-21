@@ -22,6 +22,18 @@
             );
         },
 
+        getAll: function (req, res) {
+            thoughtRepo.findAll().then(
+                function (result) {
+                    res.format({
+                        json: function () {
+                            res.json(result);
+                        }
+                    });
+                }
+            );
+        },
+
         create: function (req, res) {
             var savePromise;
             if (req.body) {

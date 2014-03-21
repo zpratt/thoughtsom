@@ -12,9 +12,8 @@ module.exports = (function () {
         English = require('yadda').localisation.English,
         Dictionary = require('yadda').Dictionary,
         dictionary = new Dictionary()
-            .define('http_method', /([^"]*)/)
-            .define('route', /([^"]*)/)
-            .define('number', /(\d+)/);
+            .define('objectId', /([^"]*)/)
+            .define('contentType', /([^"]*)/);
 
     return English.library(dictionary)
 
@@ -36,6 +35,27 @@ module.exports = (function () {
                 });
         })
         .then('a thought is returned', function (next) {
+            next();
+        })
+
+        .given('thoughts exist in the database', function (next) {
+            next();
+
+        })
+        .when ('a GET request to /thought is made with an Accept header of "$contentType"',
+            function (contentType, next) {
+                endpoint
+                    .get('/thought')
+                    .set('Accept', contentType)
+                    .expect(200)
+                    .end(function (err, res) {
+                        expect(err).to.not.exist;
+                        expect(res).to.be.defined;
+                        next();
+                    });
+            }
+        )
+        .then('a list of thoughts is returned', function (next) {
             next();
         })
 

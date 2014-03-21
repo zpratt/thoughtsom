@@ -16,6 +16,11 @@
             thoughtRoute = proxyquire(DEFAULTS.serverRoot + '/app/controllers/thought-route', {
                 'mongoose': mongooseStub
             }),
+            findByIdSuccessResult,
+            findAllSuccessResult = [
+                {_id: casual.word},
+                {_id: casual.word}
+            ],
             shouldFindMatch,
             saveCallback;
 
@@ -23,7 +28,12 @@
             return {
                 then: function (successCb, failureCb) {
                     if (shouldFindMatch) {
-                        successCb({ _id: id });
+                        if(id) {
+                            findByIdSuccessResult = { _id: id };
+                            successCb(findByIdSuccessResult);
+                        } else {
+                            successCb(findAllSuccessResult);
+                        }
                     } else {
                         failureCb('record not found');
                     }
@@ -34,6 +44,7 @@
         function before() {
             sinon.spy(mongooseStub.Types, 'ObjectId');
             sinon.stub(Repository.prototype, 'findById', findCallback);
+            sinon.stub(Repository.prototype, 'findAll', findCallback);
             sinon.stub(Repository.prototype, 'update', findCallback);
             sinon.stub(Repository.prototype, 'save').returns(
                 {
@@ -47,6 +58,7 @@
         function after () {
             mongooseStub.Types.ObjectId.restore();
             Repository.prototype.findById.restore();
+            Repository.prototype.findAll.restore();
             Repository.prototype.update.restore();
             Repository.prototype.save.restore();
         }
@@ -69,7 +81,14 @@
         }
 
         function buildResStub() {
+            function format (types) {
+                if(types.json) {
+                    types.json();
+                }
+            }
+
             return {
+                format: sinon.spy(format),
                 json: sinon.stub(),
                 status: sinon.stub(),
                 send: sinon.stub()
@@ -103,14 +122,14 @@
 
             thoughtRoute.getById(req, res);
 
-            result = JSON.stringify(res.json.getCall(0).args[0]);
-
             sinon.assert.calledOnce(Repository.prototype.findById);
             sinon.assert.calledWith(Repository.prototype.findById, existingId);
             Repository.prototype.findById.calledBefore(res.json);
 
             sinon.assert.calledOnce(res.json);
-            assert.isDefined(JSON.parse(result)._id);
+            result = res.json.getCall(0).args[0];
+
+            assert.strictEqual(result, findByIdSuccessResult);
         });
 
         it('should respond with a status code of 404 when a thought is not found', function () {
@@ -157,6 +176,27 @@
             sinon.assert.notCalled(Repository.prototype.save);
             sinon.assert.calledOnce(res.status);
             sinon.assert.calledWith(res.status, 400);
+        });
+
+        it('should return a list of thoughts when an id is not given', function () {
+            var res = buildResStub(),
+                formatArgs,
+                jsonArgs;
+
+            shouldFindMatch = true;
+            thoughtRoute.getAll({}, res);
+
+            sinon.assert.calledOnce(Repository.prototype.findAll);
+            Repository.prototype.findAll.calledBefore(res.format);
+
+            sinon.assert.calledOnce(res.format);
+
+            formatArgs = res.format.getCall(0).args[0];
+            assert.isFunction(formatArgs.json);
+
+            sinon.assert.calledOnce(res.json);
+            jsonArgs = res.json.getCall(0).args[0];
+            assert.strictEqual(findAllSuccessResult, jsonArgs);
         });
 
         beforeEach(before);
