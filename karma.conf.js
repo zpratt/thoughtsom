@@ -4,16 +4,18 @@ module.exports = function (config) {
         frameworks: ['mocha', 'commonjs', 'chai', 'sinon'],
         files: [
             {pattern: 'bower_components/lodash/dist/lodash.underscore.js'},
-            {pattern: 'bower_components/jquery/dist/jquery.min.js'},
-            {pattern: 'bower_components/backbone/backbone.js'},
+            {pattern: 'bower_components/angular/angular.js'},
+            {pattern: 'bower_components/angular-mocks/angular-mocks.js'},
 
-            {pattern: 'src/ui/backend/*.js'},
-            {pattern: 'test/unit/ui/backend/*.spec.js'}
+            {pattern: 'src/ui/app.js'},
+            {pattern: 'src/ui/controllers/*.js'},
+
+            {pattern: 'test/unit/ui/controllers/*_test.spec.js'}
         ],
         exclude: [],
         preprocessors: {
-            'src/ui/backend/*.js': ['commonjs'],
-            'test/unit/ui/backend/*.spec.js': ['commonjs']
+            'src/ui/controllers/thought-controller.js': ['commonjs'],
+            'test/unit/ui/controllers/*_test.spec.js': ['commonjs']
         },
 
         reporters: ['dots'],
@@ -22,11 +24,13 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         autoWatch: false,
         browsers: ['PhantomJS'],
+//        browsers: ['Chrome'],
         plugins: [
             'karma-chai',
             'karma-mocha',
             'karma-commonjs',
             'karma-phantomjs-launcher',
+            'karma-chrome-launcher',
             'karma-sinon'
         ],
         captureTimeout: 6000,

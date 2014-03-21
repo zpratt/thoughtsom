@@ -16,7 +16,10 @@
   ],
   "dependencies": {
     "lodash": "~2.4.1",
-    "backbone": "~1.1.2",
+    "angular": "~1.2.14",
     "jquery": "~2.1.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.14"
   }
 }

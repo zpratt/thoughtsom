@@ -5,7 +5,8 @@ module.exports = function (config) {
         files: [
             {pattern: 'bower_components/jquery/dist/jquery.min.js'},
             {pattern: 'bower_components/lodash/dist/lodash.underscore.min.js'},
-            {pattern: 'bower_components/backbone/backbone.js'},
+            {pattern: 'bower_components/angular/angular.min.js'},
+            {pattern: 'bower_components/angular-mocks/angular-mocks.js'},
 
             {pattern: 'test/acceptance/ui/features/thought-ui.feature', included: false},
         ],
@@ -17,7 +18,8 @@ module.exports = function (config) {
         browserify: {
             debug: true,
             files: [
-                'src/ui/backend/*.js',
+                'src/ui/app.js',
+                'src/ui/controllers/*.js',
                 'test/acceptance/ui/*.spec.js',
                 'test/acceptance/ui/features/step_definitions/*.step.js'
             ]

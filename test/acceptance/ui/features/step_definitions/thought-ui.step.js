@@ -1,19 +1,28 @@
 /* jshint -W030 */
 
+/**
+ * TODO: The BDD tests will need to load the template and interact with it.
+ * I may want to consider doing something similiar to what is decribed in the example
+ * on the following page: http://docs.angularjs.org/api/ng/function/angular.injector
+ */
+
 module.exports = (function () {
     'use strict';
-    var ThoughtCollection = require('../../../../../src/ui/backend/thought-collection'),
-
-        English = require('yadda').localisation.English,
+    var English = require('yadda').localisation.English,
         Dictionary = require('yadda').Dictionary,
         dictionary = new Dictionary()
-        .define('title', /([^"]*)/)
-        .define('body', /([^"]*)/)
-        .define('number', /(\d+)/),
+            .define('title', /([^"]*)/)
+            .define('body', /([^"]*)/)
+            .define('number', /(\d+)/),
 
         server,
-        response,
-        collection;
+        $injector,
+        controller;
+
+    beforeEach(function () {
+        $injector = angular.injector(['ng', 'thoughtsomApp']);
+        controller = $injector.get('$controller');
+    });
 
     beforeEach(function () {
         server = sinon.fakeServer.create();
@@ -29,34 +38,12 @@ module.exports = (function () {
     return English.library(dictionary)
 
         .given('a user', function (next) {
-            collection = new ThoughtCollection();
-            expect(collection).to.be.instanceof(Backbone.Collection);
-
             next();
         })
-
         .when('a GET request on /thought is performed', function (next) {
-            collection.fetch({
-                    success: function (res) {
-                        response = res;
-                        next();
-                    },
-                    failure: function () {
-                        next();
-                    }
-                });
-
-            server.respond();
+            next();
         })
-
         .then('a list of thoughts is returned', function (next) {
-            var model;
-
-            expect(response).to.have.length.above(0);
-
-            model = response.models[0];
-            expect(model.attributes).to.contain.keys('_id', 'title', 'body');
-
             next();
         });
 }());
