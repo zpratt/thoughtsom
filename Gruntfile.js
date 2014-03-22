@@ -27,14 +27,6 @@ module.exports = function (grunt) {
                 tasks: ['jshint:test', 'karma:all']
             }
         },
-        docco: {
-            serverSrc: {
-                src: ['src/server/**/*.js'],
-                options: {
-                    output: 'docs/'
-                }
-            }
-        },
         nodemon: {
             dev: {
                 script: './src/server/index.js',
@@ -73,21 +65,44 @@ module.exports = function (grunt) {
                     files: ['test/acceptance/server/*.spec.js']
                 }
             }
+        },
+        browserify: {
+            options: {
+                debug: true
+            },
+            all: {
+                files: [{
+                    src: ['src/ui/**/*.js'],
+                    dest: 'build/main.js',
+                    ext: '.js'
+                }]
+            }
+        },
+        copy: {
+            options: {
+                encoding: 'utf8'
+            },
+            dist: {
+                files: [
+                    { expand: true, filter: 'isFile', flatten: true, src: ['src/ui/*.html'], dest: 'public/' },
+                    { expand: true, filter: 'isFile', flatten: true, src: ['build/*.js'], dest: 'public/js/' },
+                    { expand: true, filter: 'isFile', flatten: true, src: ['bower_components/angular/angular.min.js'], dest: 'public/js/' }
+                ]
+            }
         }
     });
 
-    // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-mocha-cov');
-    grunt.loadNpmTasks('grunt-docco');
+    grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
-    // Default task.
     grunt.registerTask('default', ['jshint', 'test', 'server']);
+    grunt.registerTask('build', ['jshint', 'test', 'browserify:all', 'copy:dist']);
     grunt.registerTask('server', ['nodemon']);
-    grunt.registerTask('doc', ['docco:serverSrc']);
     grunt.registerTask('test', ['jshint', 'unit:server', 'unit:ui', 'bdd:server', 'bdd:ui']);
     grunt.registerTask('unit:server', ['mochacov:unit']);
     grunt.registerTask('unit:ui', ['karma:unit']);

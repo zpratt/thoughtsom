@@ -1,6 +1,6 @@
 node_modules
 bower_components
-docs
+build
 public
 .idea
 .coveralls.yml

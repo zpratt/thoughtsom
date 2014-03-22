@@ -1,3 +1,12 @@
 /* jshint -W098 */
 
-var thoughtsomApp = angular.module('thoughtsomApp', []);
+module.exports = (function () {
+    'use strict';
+
+    var ThoughtController = require('./controllers/thought-controller'),
+        thoughtsomApp = angular.module('thoughtsomApp', []);
+
+    thoughtsomApp.controller('ThoughtController', ThoughtController);
+}());
+
+
