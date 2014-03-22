@@ -14,6 +14,7 @@ module.exports = function (config) {
         ],
         exclude: [],
         preprocessors: {
+            'src/ui/app.js': ['commonjs'],
             'src/ui/controllers/thought-controller.js': ['commonjs'],
             'test/unit/ui/controllers/*_test.spec.js': ['commonjs']
         },
