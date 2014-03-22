@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" ng-app="thoughtsomApp">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Test Angular App</title>
+        <script src="js/angular.min.js"></script>
+        <script src="js/main.js"></script>
+    </head>
+
+    <body ng-controller="ThoughtController">
+        <main>
+             <ul>
+                <li ng-repeat="thought in thoughts | filter:query">
+                    {{thought.title}} <p>{{thought.body}} - {{thought.created_ts}}</p>
+                </li>
+            </ul>
+            <p>Searching for: {{query}}</p>
+        </main>
+        <aside>
+            <label for="searchBox">Search: </label>
+            <input ng-model="query" id="searchBox"/>
+        </aside>
+
+    </body>
+</html>
