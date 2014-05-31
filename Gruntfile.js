@@ -92,13 +92,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-nodemon');
-    grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-mocha-cov');
-    grunt.loadNpmTasks('grunt-browserify');
-    grunt.loadNpmTasks('grunt-contrib-copy');
+    require('load-grunt-tasks')(grunt);
 
     grunt.registerTask('default', ['jshint', 'test', 'server']);
     grunt.registerTask('build', ['jshint', 'test', 'browserify:all', 'copy:dist']);
