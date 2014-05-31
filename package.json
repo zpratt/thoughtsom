@@ -56,7 +56,7 @@
     "yadda": "^0.10.12"
   },
   "dependencies": {
-    "mongoose": "^3.8.8",
+    "mongoose": "^3.8.12",
     "lodash": "~2.4.1",
     "express": "~3.4.8"
   }
