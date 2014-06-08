@@ -1,11 +1,5 @@
 /* jshint -W030 */
 
-/**
- * TODO: The BDD tests will need to load the template and interact with it.
- * I may want to consider doing something similiar to what is decribed in the example
- * on the following page: http://docs.angularjs.org/api/ng/function/angular.injector
- */
-
 module.exports = (function () {
     'use strict';
     var English = require('yadda').localisation.English,
@@ -15,13 +9,14 @@ module.exports = (function () {
             .define('body', /([^"]*)/)
             .define('number', /(\d+)/),
 
-        server,
-        $injector,
-        controller;
+        expect = require('chai').expect,
+
+        ThoughtCollection = require('../../../../../src/ui/collections/thought-collection'),
+        collection,
+
+        server;
 
     beforeEach(function () {
-        $injector = angular.injector(['ng', 'thoughtsomApp']);
-        controller = $injector.get('$controller');
     });
 
     beforeEach(function () {
@@ -41,9 +36,14 @@ module.exports = (function () {
             next();
         })
         .when('a GET request on /thought is performed', function (next) {
-            next();
+            collection = new ThoughtCollection();
+            collection.fetch().then(function () {
+                next();
+            });
+            server.respond();
         })
         .then('a list of thoughts is returned', function (next) {
+            expect(collection.models.length).to.equal(1);
             next();
         });
 }());

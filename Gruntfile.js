@@ -40,12 +40,14 @@ module.exports = function (grunt) {
             unit: {
                 configFile: 'karma.conf.js',
                 singleRun: true,
-                reporters: 'dots'
+                reporters: 'mocha',
+                runnerPort: 9998
             },
             bdd: {
                 configFile: 'karma-bdd.conf.js',
                 singleRun: true,
-                reporters: 'dots'
+                reporters: 'mocha',
+                runnerPort: 9999
             }
         },
         mochacov: {
@@ -100,11 +102,11 @@ module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
 
-    grunt.registerTask('default', ['jshint', 'test', 'server']);
+    grunt.registerTask('default', ['jshint', 'test', 'client', 'server']);
     grunt.registerTask('build', ['jshint', 'test', 'browserify:all', 'copy:dist']);
-    grunt.registerTask('build-exp', ['browserify:all', 'copy:dist']);
+    grunt.registerTask('client', ['browserify:all', 'copy:dist']);
     grunt.registerTask('server', ['nodemon']);
-    grunt.registerTask('test', ['jshint', 'unit:server', 'unit:ui', 'bdd:server', 'bdd:ui']);
+    grunt.registerTask('test', ['unit:server', 'unit:ui', 'bdd:server', 'bdd:ui']);
     grunt.registerTask('unit:server', ['mochacov:unit']);
     grunt.registerTask('unit:ui', ['karma:unit']);
     grunt.registerTask('bdd:ui', ['karma:bdd']);

@@ -1,6 +1,9 @@
 module.export = (function () {
     'use strict';
+    var $ = require('jquery');
+
     $.ajaxSetup({async: false});
+
     var Yadda = require('yadda'),
         English = Yadda.localisation.English,
         FeatureParser = Yadda.parsers.FeatureParser,

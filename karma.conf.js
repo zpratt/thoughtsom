@@ -1,26 +1,31 @@
 module.exports = function (config) {
     config.set({
         basePath: '.',
-        frameworks: ['mocha', 'commonjs', 'chai', 'sinon'],
+        frameworks: ['mocha', 'chai', 'sinon', 'browserify'],
         files: [
-            {pattern: 'bower_components/lodash/dist/lodash.underscore.js'},
-            {pattern: 'bower_components/angular/angular.js'},
-            {pattern: 'bower_components/angular-mocks/angular-mocks.js'},
-
-            {pattern: 'src/ui/app.js'},
-            {pattern: 'src/ui/controllers/*.js'},
-
-            {pattern: 'test/unit/ui/controllers/*_test.spec.js'}
+            {pattern: 'test/unit/ui/collections/*.spec.js'}
         ],
         exclude: [],
         preprocessors: {
-            'src/ui/app.js': ['commonjs'],
-            'src/ui/controllers/thought-controller.js': ['commonjs'],
-            'test/unit/ui/controllers/*_test.spec.js': ['commonjs']
+//            '/**/*.browserify': 'browserify',
+            'src/ui/collections/*.js': 'browserify',
+            'src/ui/models/*.js': 'browserify',
+            'src/ui/views/*.js': 'browserify',
+            'test/unit/ui/collections/*.spec.js': 'browserify'
         },
-
-        reporters: ['dots'],
-        port: 9999,
+        browserify: {
+            debug: true,
+            files: [
+                'src/ui/app.js',
+                'src/ui/collections/*.js',
+                'src/ui/models/*.js',
+                'src/ui/views/*.js',
+                'test/unit/ui/collections/*.spec.js'
+            ],
+            transform: ['hbsfy']
+        },
+        reporters: ['mocha', 'progress'],
+        port: 9998,
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: false,
@@ -29,12 +34,13 @@ module.exports = function (config) {
         plugins: [
             'karma-chai',
             'karma-mocha',
-            'karma-commonjs',
+            'karma-browserifast',
             'karma-phantomjs-launcher',
-            'karma-chrome-launcher',
+            'karma-mocha-reporter',
+//            'karma-chrome-launcher',
             'karma-sinon'
         ],
-        captureTimeout: 6000,
-        singleRun: true
+        captureTimeout: 6000
+//        singleRun: true
     });
 };
