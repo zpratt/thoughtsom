@@ -68,11 +68,12 @@ module.exports = function (grunt) {
         },
         browserify: {
             options: {
+//                transform: ['uglifyify'],
                 debug: true
             },
             all: {
                 files: [{
-                    src: ['src/ui/**/*.js'],
+                    src: ['node_modules/backbone/node_modules/underscore/underscore.js', 'node_modules/backbone/backbone.js', 'src/ui/**/*.js'],
                     dest: 'build/main.js',
                     ext: '.js'
                 }]
@@ -86,7 +87,7 @@ module.exports = function (grunt) {
                 files: [
                     { expand: true, filter: 'isFile', flatten: true, src: ['src/ui/*.html'], dest: 'public/' },
                     { expand: true, filter: 'isFile', flatten: true, src: ['build/*.js'], dest: 'public/js/' },
-                    { expand: true, filter: 'isFile', flatten: true, src: ['bower_components/angular/angular.min.js'], dest: 'public/js/' }
+                    { expand: true, filter: 'isFile', flatten: true, src: ['bower_components/bootstrap/dist/css/bootstrap.min.css'], dest: 'public/css/' }
                 ]
             }
         }
@@ -96,6 +97,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', ['jshint', 'test', 'server']);
     grunt.registerTask('build', ['jshint', 'test', 'browserify:all', 'copy:dist']);
+    grunt.registerTask('build-exp', ['browserify:all', 'copy:dist']);
     grunt.registerTask('server', ['nodemon']);
     grunt.registerTask('test', ['jshint', 'unit:server', 'unit:ui', 'bdd:server', 'bdd:ui']);
     grunt.registerTask('unit:server', ['mochacov:unit']);

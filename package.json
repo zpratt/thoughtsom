@@ -40,6 +40,7 @@
     "grunt-karma": "^0.8.3",
     "grunt-mocha-cov": "0.2.x",
     "grunt-nodemon": "~0.2.0",
+    "grunt-templates-hogan": "^0.2.5",
     "karma": "^0.12.16",
     "karma-browserifast": "^0.6.1",
     "karma-chai": "^0.1.0",
@@ -53,11 +54,15 @@
     "proxyquire": "~0.5.2",
     "sinon": "~1.9.0",
     "supertest": "~0.13.0",
+    "uglifyify": "^2.4.0",
     "yadda": "^0.10.12"
   },
   "dependencies": {
-    "mongoose": "^3.8.12",
+    "backbone": "^1.1.2",
+    "express": "~3.4.8",
+    "hogan.js": "^2.0.0",
+    "jquery": "^2.1.1",
     "lodash": "~2.4.1",
-    "express": "~3.4.8"
+    "mongoose": "^3.8.12"
   }
 }
