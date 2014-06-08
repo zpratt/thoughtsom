@@ -23,7 +23,7 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "test": "grunt jshint; grunt bdd:server; grunt bdd:ui; grunt unit:server; grunt unit:ui"
+    "test": "grunt jshint; grunt test:bdd; grunt test:unit;"
   },
   "devDependencies": {
     "browserify": "^4.1.6",
