@@ -7,7 +7,8 @@ module.exports = (function () {
         _ = require('lodash'),
 
         ThoughtCollection = require('./collections/thought-collection'),
-        ThoughtListView = require('./views/thought-list');
+        ThoughtListView = require('./views/thought-list'),
+        ThoughtModel = require('./models/thought-model');
 
     var collection = new ThoughtCollection(),
         view = new ThoughtListView({

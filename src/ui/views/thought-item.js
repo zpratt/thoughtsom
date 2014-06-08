@@ -21,9 +21,6 @@ module.exports = (function () {
         },
 
         render: function () {
-            var title = this.model.get('title'),
-                body = this.model.get('body');
-
             this.$el.html(this.template(this.model.attributes));
         },
 
