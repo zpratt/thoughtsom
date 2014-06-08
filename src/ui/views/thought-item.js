@@ -3,7 +3,7 @@ module.exports = (function () {
 
     var Backbone = require('backbone'),
 
-        thoughtItemTemplate = require('../templates/thoughtItem.hbs');
+        thoughtItemTemplate = require('../templates/thought-item.hbs');
 
     return Backbone.View.extend({
         events: {
