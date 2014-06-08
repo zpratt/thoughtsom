@@ -69,11 +69,16 @@ module.exports = function (grunt) {
         browserify: {
             options: {
 //                transform: ['uglifyify'],
+                transform: ['hbsfy'],
                 debug: true
             },
             all: {
                 files: [{
-                    src: ['node_modules/backbone/node_modules/underscore/underscore.js', 'node_modules/backbone/backbone.js', 'src/ui/**/*.js'],
+                    src: [
+                        'node_modules/backbone/node_modules/underscore/underscore.js',
+                        'node_modules/backbone/backbone.js',
+                        'src/ui/**/*.js'
+                    ],
                     dest: 'build/main.js',
                     ext: '.js'
                 }]

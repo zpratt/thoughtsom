@@ -5,7 +5,8 @@ module.exports = (function () {
 
     var Backbone = require('backbone'),
         $ = require('jquery'),
-        _ = require('lodash');
+        _ = require('lodash'),
+        thoughtItemTemplate = require('./templates/thoughtItem.hbs');
 
     Backbone.$ = $;
 
@@ -58,11 +59,15 @@ module.exports = (function () {
                 this.listenTo(this.model, 'change:url', this.render);
             },
 
+            template: function (data) {
+                return thoughtItemTemplate(data);
+            },
+
             render: function () {
                 var title = this.model.get('title'),
                     body = this.model.get('body');
 
-                this.$el.html('<article><h2>' + title + '</h2><button class="delete">Delete</button><p>' + body + '</p></article>');
+                this.$el.html(this.template(this.model.attributes));
             },
 
             handleDelete: function (event) {
