@@ -7,7 +7,6 @@ module.exports = function (config) {
         ],
         exclude: [],
         preprocessors: {
-//            '/**/*.browserify': 'browserify',
             'src/ui/collections/*.js': 'browserify',
             'src/ui/models/*.js': 'browserify',
             'src/ui/views/*.js': 'browserify',
@@ -28,19 +27,16 @@ module.exports = function (config) {
         port: 9998,
         colors: true,
         logLevel: config.LOG_INFO,
-        autoWatch: false,
+        autoWatch: true,
         browsers: ['PhantomJS'],
-//        browsers: ['Chrome'],
         plugins: [
             'karma-chai',
             'karma-mocha',
             'karma-browserifast',
             'karma-phantomjs-launcher',
             'karma-mocha-reporter',
-//            'karma-chrome-launcher',
             'karma-sinon'
         ],
         captureTimeout: 6000
-//        singleRun: true
     });
 };
