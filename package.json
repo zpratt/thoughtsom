@@ -23,7 +23,7 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "test": "grunt jshint; grunt test:bdd; grunt test:unit;"
+    "test": "grunt jshint && grunt test:bdd && grunt test:unit"
   },
   "devDependencies": {
     "browserify": "^4.1.6",
@@ -52,11 +52,11 @@
     "karma-mocha-reporter": "^0.2.5",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-sinon": "^1.0.3",
-    "load-grunt-tasks": "^0.4.0",
-    "mocha": "~1.17.1",
+    "load-grunt-tasks": "^0.5.0",
+    "mocha": "^1.20.1",
     "nodemon": "~1.0.14",
-    "proxyquire": "~0.5.2",
-    "sinon": "~1.9.0",
+    "proxyquire": "^1.0.1",
+    "sinon": "^1.10.2",
     "supertest": "~0.13.0",
     "uglifyify": "^2.4.0",
     "yadda": "^0.10.13"

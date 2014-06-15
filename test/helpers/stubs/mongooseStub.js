@@ -1,4 +1,6 @@
 module.exports = (function () {
+    'use strict';
+
     var casual = require('casual');
 
     return {

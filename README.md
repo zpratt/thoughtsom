@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/zpratt/thoughtsom.svg?branch=master)](https://travis-ci.org/zpratt/thoughtsom)
-[![Code Climate](https://codeclimate.com/github/zpratt/thoughtsom.png)](https://codeclimate.com/github/zpratt/thoughtsom)
-[![Dependency Status](https://david-dm.org/zpratt/thoughtsom.svg?theme=shields.io)](https://david-dm.org/zpratt/thoughtsom)
+[![Build Status](http://img.shields.io/travis/zpratt/thoughtsom/master.svg?style=flat)](https://travis-ci.org/zpratt/thoughtsom)
+[![Code Climate](http://img.shields.io/codeclimate/github/zpratt/thoughtsom.svg?style=flat)](https://codeclimate.com/github/zpratt/thoughtsom)
+[![Dependency Status](http://img.shields.io/gemnasium/zpratt/thoughtsom.svg?style=flat)](https://gemnasium.com/zpratt/thoughtsom)
 ## Release History
 * Updates
   * 03/21/14

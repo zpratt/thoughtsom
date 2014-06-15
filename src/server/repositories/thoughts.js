@@ -1,6 +1,6 @@
-'use strict';
-
 (function() {
+    'use strict';
+
     var mongoose = require('mongoose'),
         Thought = require('../models/thought'),
         _ = require('lodash');
@@ -13,8 +13,11 @@
 
     function handleError(errType) {
         return function(err, model) {
+            var message;
+
             if(err) {
-                console.log('Error performing ' + errType + 'on model: ' + model.title);
+                message = 'Error performing ' + errType + 'on model: ' + model.title;
+                return message;
             }
         };
     }
@@ -32,10 +35,8 @@
                 objectId = stringToObjectId(id);
 
             query = this.model.findById(objectId);
-            return query.exec(function (err) {
-                if (err) {
-                    console.log('error in findById');
-                }
+            return query.exec(function () {
+                return;
             });
         },
         findAll: function () {
@@ -43,10 +44,8 @@
 
             query = this.model.find({});
 
-            return query.exec(function (err) {
-                if (err) {
-                    console.log('error in findAll');
-                }
+            return query.exec(function () {
+                return;
             });
         },
         save: function (thought) {
@@ -58,11 +57,8 @@
 
             query = this.model.findOneAndUpdate({_id: objectId}, _.omit(thought, '_id'));
 
-            return query.exec(function (err) {
-                if (err) {
-                    console.log('error in update');
-                    console.log(err);
-                }
+            return query.exec(function () {
+                return;
             });
         }
     });
