@@ -10,40 +10,51 @@ module.exports = (function () {
             .define('number', /(\d+)/),
 
         expect = require('chai').expect,
+        $ = require('jquery'),
 
-        ThoughtCollection = require('../../../../../src/ui/collections/thought-collection'),
-        collection,
+        skeletonTestTemplate = require('../../support/templates/create-thought.hbs'),
+        dummyThoughts = [
+            { "_id": 1, "title": "This Is A Title", "body": "This is the body!" },
+            { "_id": 2, "title": "This Is Another Title", "body": "This is some body text!" }
+        ],
+
+        app = require('../../../../../src/ui/app'),
 
         server;
 
     beforeEach(function () {
-    });
-
-    beforeEach(function () {
         server = sinon.fakeServer.create();
         server.respondWith('GET', '/thought',
-            [200, { 'Content-Type': 'application/json' },
-                '[{ "_id": 1, "title": "This Is A Title", "body": "This is the body!" }]']);
-
+            [
+                200,
+                { 'Content-Type': 'application/json' },
+                JSON.stringify(dummyThoughts)
+            ]
+        );
     });
+
+    beforeEach(function (done) {
+        $('body').html(skeletonTestTemplate());
+        app();
+
+        done();
+    });
+
     afterEach(function () {
         server.restore();
+        $('body').empty();
     });
 
     return English.library(dictionary)
-
-        .given('a user', function (next) {
+        .given('a user with existing saved thoughts', function (next) {
             next();
         })
-        .when('a GET request on /thought is performed', function (next) {
-            collection = new ThoughtCollection();
-            collection.fetch().then(function () {
-                next();
-            });
+        .when('a user lists their thoughts', function (next) {
             server.respond();
+            next();
         })
         .then('a list of thoughts is returned', function (next) {
-            expect(collection.models.length).to.equal(1);
+            expect($('.thoughts ul li').length).to.equal(dummyThoughts.length);
             next();
         });
 }());

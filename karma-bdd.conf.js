@@ -9,7 +9,7 @@ module.exports = function (config) {
         exclude: [],
 
         preprocessors: {
-//            '/**/*.browserify': 'browserify'
+            'src/ui/app.js': 'browserify',
             'src/ui/collections/*.js': 'browserify',
             'src/ui/models/*.js': 'browserify',
             'src/ui/views/*.js': 'browserify',
@@ -39,11 +39,12 @@ module.exports = function (config) {
             'karma-chai',
             'karma-mocha',
             'karma-phantomjs-launcher',
+            'karma-chrome-launcher',
             'karma-mocha-reporter',
             'karma-sinon',
             'karma-browserifast'
         ],
-        captureTimeout: 6000
-//        singleRun: true
+        captureTimeout: 6000,
+        singleRun: true
     });
 };
