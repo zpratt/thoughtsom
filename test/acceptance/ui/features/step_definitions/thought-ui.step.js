@@ -24,13 +24,18 @@ module.exports = (function () {
 
     beforeEach(function () {
         server = sinon.fakeServer.create();
-        server.respondWith('GET', '/thought',
-            [
-                200,
-                { 'Content-Type': 'application/json' },
-                JSON.stringify(dummyThoughts)
-            ]
-        );
+
+        server.respondWith('GET', '/thought', [
+            200,
+            { 'Content-Type': 'application/json' },
+            JSON.stringify(dummyThoughts)
+        ]);
+
+        server.respondWith('POST', '/thought', [
+            201,
+            { 'Content-Type': 'application/json' },
+            JSON.stringify([{href: '/thought' + 9999}])
+        ]);
     });
 
     beforeEach(function (done) {
@@ -46,6 +51,7 @@ module.exports = (function () {
     });
 
     return English.library(dictionary)
+
         .given('a user with existing saved thoughts', function (next) {
             next();
         })
@@ -55,6 +61,24 @@ module.exports = (function () {
         })
         .then('a list of thoughts is returned', function (next) {
             expect($('.thoughts ul li').length).to.equal(dummyThoughts.length);
+            next();
+        })
+
+        .given('a user', function (next) {
+            next();
+        })
+        .when('a user authors a new thought', function (next) {
+            server.respond();
+
+            $('form[data-model="Thought"] #thought-title').val('Some title');
+            $('form[data-model="Thought"] #thought-body').val('Some body text');
+            $('.save-thought[type="submit"]').click();
+
+            server.respond();
+            next();
+        })
+        .then('a new thought is saved to the server', function (next) {
+            expect($('.thoughts ul li').length).to.equal(dummyThoughts.length + 1);
             next();
         });
 }());
