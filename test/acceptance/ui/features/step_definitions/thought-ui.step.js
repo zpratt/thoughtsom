@@ -4,10 +4,7 @@ module.exports = (function () {
     'use strict';
     var English = require('yadda').localisation.English,
         Dictionary = require('yadda').Dictionary,
-        dictionary = new Dictionary()
-            .define('title', /([^"]*)/)
-            .define('body', /([^"]*)/)
-            .define('number', /(\d+)/),
+        dictionary = new Dictionary(),
 
         expect = require('chai').expect,
         $ = require('jquery'),
