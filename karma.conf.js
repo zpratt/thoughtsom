@@ -10,7 +10,7 @@ module.exports = function (config) {
             'src/ui/collections/*.js': 'browserify',
             'src/ui/models/*.js': 'browserify',
             'src/ui/views/*.js': 'browserify',
-            'test/unit/ui/collections/*.spec.js': 'browserify'
+            'test/unit/ui/**/*.spec.js': 'browserify'
         },
         browserify: {
             debug: true,
@@ -19,7 +19,7 @@ module.exports = function (config) {
                 'src/ui/collections/*.js',
                 'src/ui/models/*.js',
                 'src/ui/views/*.js',
-                'test/unit/ui/collections/*.spec.js'
+                'test/unit/ui/**/*.spec.js'
             ],
             transform: ['hbsfy']
         },

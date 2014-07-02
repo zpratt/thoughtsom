@@ -14,7 +14,7 @@ module.exports = (function () {
 
         initialize: function (attributes) {
             if (_.has(attributes, '_id')) {
-            this.set('url', this.defaults.url + '/' + attributes._id);
+                this.set('url', this.defaults.url + '/' + attributes._id);
             }
         }
     });
