@@ -22,14 +22,7 @@ module.exports = function (config) {
 
         browserify: {
             debug: true,
-            files: _.union(
-                _.map(prodFiles, function (file) {
-                    return {pattern: file, watch: true}
-                }),
-                _.map(testFiles.spec, function (file) {
-                    return {pattern: file, watch: true}
-                })
-            ),
+            files: _.union(prodFiles, testFiles.spec),
             transform: ['hbsfy']
         },
 

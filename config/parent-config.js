@@ -14,7 +14,8 @@ module.exports = function (mainDir, cwd) {
             'src/ui/views/thought-item.js'
         ],
         ui_test_unit: [
-
+            'test/unit/ui/collections/thought-collection.spec.js',
+            'test/unit/ui/models/thought-model.spec.js'
         ],
         ui_test_bdd: {
             spec: [ 'test/acceptance/ui/*.spec.js' ],
