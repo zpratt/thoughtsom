@@ -23,9 +23,9 @@ module.exports = function (mainDir, cwd) {
             feature: [ 'test/acceptance/ui/features/thought-ui.feature' ]
         },
         Default: {
-            projRoot: cwd + mainDir + '/src',
-            serverRoot: cwd + mainDir + '/src/server',
-            testRoot: cwd + mainDir + '/test'
+            projRoot: cwd + mainDir + 'src',
+            serverRoot: cwd + mainDir + 'src/server',
+            testRoot: cwd + mainDir + 'test'
         },
         TestVals: {
             knownObjectId: "52ffef5e3242c4a82909c53f"
