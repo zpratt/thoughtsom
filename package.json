@@ -60,6 +60,7 @@
     "sinon": "^1.10.2",
     "supertest": "~0.13.0",
     "uglifyify": "^2.4.0",
+    "watchify": "^0.10.2",
     "yadda": "^0.10.13"
   },
   "dependencies": {

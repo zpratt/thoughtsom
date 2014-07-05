@@ -6,6 +6,21 @@ module.exports = function (mainDir, cwd) {
     }
 
     return {
+        ui_prod: [
+            'src/ui/app.js',
+            'src/ui/collections/thought-collection.js',
+            'src/ui/models/thought-model.js',
+            'src/ui/views/thought-list.js',
+            'src/ui/views/thought-item.js'
+        ],
+        ui_test_unit: [
+
+        ],
+        ui_test_bdd: {
+            spec: [ 'test/acceptance/ui/*.spec.js' ],
+            step: [ 'test/acceptance/ui/features/step_definitions/*.step.js' ],
+            feature: [ 'test/acceptance/ui/features/thought-ui.feature' ]
+        },
         Default: {
             projRoot: cwd + mainDir + '/src',
             serverRoot: cwd + mainDir + '/src/server',

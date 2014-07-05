@@ -1,50 +1,64 @@
 module.exports = function (config) {
-    config.set({
-        basePath: '.',
-        frameworks: ['mocha', 'chai', 'sinon', 'browserify'],
-        files: [
-            {pattern: 'test/acceptance/ui/features/thought-ui.feature', included: false},
-            {pattern: 'test/acceptance/ui/*.spec.js'}
-        ],
-        exclude: [],
+    'use strict';
 
-        preprocessors: {
-            'src/ui/app.js': 'browserify',
-            'src/ui/collections/*.js': 'browserify',
-            'src/ui/models/*.js': 'browserify',
-            'src/ui/views/*.js': 'browserify',
-            'test/acceptance/ui/*.spec.js': 'browserify',
-            'test/acceptance/ui/features/step_definitions/*.step.js': 'browserify'
-        },
+    var _ = require('lodash'),
+        files = require('config'),
+        prodFiles = files.ui_prod,
+        testFiles = files.ui_test_bdd;
+
+    function preprocessor() {
+        var files = {};
+        _.each(_.union(prodFiles, testFiles.spec, testFiles.step), function (file) {
+            files[file] = 'browserify';
+        });
+
+        return files;
+    }
+
+    config.set({
+        frameworks: ['mocha', 'chai', 'sinon', 'browserify'],
+
+        preprocessors: preprocessor(),
+
         browserify: {
             debug: true,
-            files: [
-                'src/ui/app.js',
-                'src/ui/collections/*.js',
-                'src/ui/models/*.js',
-                'src/ui/views/*.js',
-                'test/acceptance/ui/*.spec.js',
-                'test/acceptance/ui/features/step_definitions/*.step.js'
-            ],
+            files: _.union(
+                _.map(prodFiles, function (file) {
+                    return {pattern: file, watch: true}
+                }),
+                _.map(testFiles.spec, function (file) {
+                    return {pattern: file, watch: true}
+                })
+            ),
             transform: ['hbsfy']
         },
 
-        reporters: ['mocha', 'progress'],
+        files: _.union(
+//            _.map(prodFiles, function (file) {
+//                return {pattern: file, watch: true, included: false}
+//            }),
+            _.map(testFiles.step, function (file) {
+                return {pattern: file, watch: true}
+            }),
+            _.map(testFiles.feature, function (file) {
+                return {pattern: file, included: false, watch: true}
+            })
+        ),
+
+        reporters: ['progress'],
         port: 9999,
         colors: true,
-        logLevel: config.LOG_WARN,
-        autoWatch: true,
+        reportSlowerThan: 50,
+        logLevel: config.LOG_INFO,
         browsers: ['PhantomJS'],
         plugins: [
             'karma-chai',
             'karma-mocha',
-            'karma-phantomjs-launcher',
-            'karma-chrome-launcher',
-            'karma-mocha-reporter',
             'karma-sinon',
-            'karma-browserifast'
+            'karma-browserifast',
+            'karma-phantomjs-launcher',
+            'karma-chrome-launcher'
         ],
-        captureTimeout: 6000,
-        singleRun: true
+        captureTimeout: 6000
     });
 };
