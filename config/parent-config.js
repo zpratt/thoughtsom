@@ -6,6 +6,7 @@ module.exports = function (mainDir, cwd) {
     }
 
     return {
+        basePath: cwd + mainDir,
         ui_prod: [
             'src/ui/app.js',
             'src/ui/collections/thought-collection.js',

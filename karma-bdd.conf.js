@@ -16,28 +16,29 @@ module.exports = function (config) {
     }
 
     config.set({
+        basePath: files.basePath,
         frameworks: ['mocha', 'chai', 'sinon', 'browserify'],
 
-        preprocessors: preprocessor(),
+        preprocessors: {'/**/*.browserify': 'browserify'},
 
         browserify: {
             debug: true,
-            files: _.union(prodFiles, testFiles.spec),
+            files: _.map(_.union(prodFiles, testFiles.spec, testFiles.step), function (file) {
+                return  {pattern: file, watched: true};
+            }),
             transform: ['hbsfy']
         },
 
         files: _.union(
-//            _.map(prodFiles, function (file) {
-//                return {pattern: file, watch: true, included: false}
-//            }),
-            _.map(testFiles.step, function (file) {
-                return {pattern: file, watch: true}
+            _.map(_.union(prodFiles, testFiles.spec, testFiles.step), function (file) {
+                return {pattern: file, watch: true, included: false}
             }),
             _.map(testFiles.feature, function (file) {
                 return {pattern: file, included: false, watch: true}
             })
         ),
 
+        autoWatch: true,
         reporters: ['progress'],
         port: 9999,
         colors: true,
