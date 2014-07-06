@@ -9,7 +9,7 @@ module.exports = function (config) {
     function preprocessor() {
         var files = {};
         _.each(_.union(prodFiles, testFiles), function (file) {
-            files[file] = 'browserify';
+            files[file] = ['browserify', 'coverage'];
         });
 
         return files;
@@ -35,6 +35,7 @@ module.exports = function (config) {
         browsers: ['PhantomJS'],
         plugins: [
             'karma-chai',
+            'karma-coverage',
             'karma-mocha',
             'karma-bro',
             'karma-phantomjs-launcher',
