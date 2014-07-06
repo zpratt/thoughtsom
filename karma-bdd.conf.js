@@ -19,19 +19,16 @@ module.exports = function (config) {
         basePath: files.basePath,
         frameworks: ['mocha', 'chai', 'sinon', 'browserify'],
 
-        preprocessors: {'/**/*.browserify': 'browserify'},
+        preprocessors: preprocessor(),
 
         browserify: {
             debug: true,
-            files: _.map(_.union(prodFiles, testFiles.spec, testFiles.step), function (file) {
-                return  {pattern: file, watched: true};
-            }),
             transform: ['hbsfy']
         },
 
         files: _.union(
             _.map(_.union(prodFiles, testFiles.spec, testFiles.step), function (file) {
-                return {pattern: file, watch: true, included: false}
+                return {pattern: file, watch: true}
             }),
             _.map(testFiles.feature, function (file) {
                 return {pattern: file, included: false, watch: true}
@@ -49,7 +46,7 @@ module.exports = function (config) {
             'karma-chai',
             'karma-mocha',
             'karma-sinon',
-            'karma-browserifast',
+            'karma-bro',
             'karma-phantomjs-launcher',
             'karma-chrome-launcher'
         ],

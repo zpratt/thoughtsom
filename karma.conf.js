@@ -22,10 +22,11 @@ module.exports = function (config) {
         preprocessors: preprocessor(),
         browserify: {
             debug: true,
-            files: _.union(prodFiles, testFiles),
             transform: ['hbsfy']
         },
-        files: [testFiles[0]],
+        files: _.map(_.union(prodFiles, testFiles), function (file) {
+            return {pattern: file, watch: true}
+        }),
         reporters: ['progress'],
         port: 9998,
         colors: true,
@@ -35,7 +36,7 @@ module.exports = function (config) {
         plugins: [
             'karma-chai',
             'karma-mocha',
-            'karma-browserifast',
+            'karma-bro',
             'karma-phantomjs-launcher',
             'karma-sinon'
         ],
