@@ -12,7 +12,7 @@ module.exports = (function () {
 
         initialize: function () {
             this.render();
-
+//
             this.listenTo(this.model, 'change:url', this.render);
         },
 
