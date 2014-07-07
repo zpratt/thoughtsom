@@ -3,6 +3,10 @@
 [![Dependency Status](http://img.shields.io/gemnasium/zpratt/thoughtsom.svg?style=flat)](https://gemnasium.com/zpratt/thoughtsom)
 ## Release History
 * Updates
+  * 07/06/14
+    * Switched again from Angular to Backbone
+    * Added initial [UI acceptance tests](https://github.com/zpratt/thoughtsom/tree/master/test/acceptance/ui).
+    * Included a working UI that can create thoughts and sync with the server.
   * 03/21/14
     * After a fair amount of experimenting, I have decided to use Angular for the UI
     * Sticking with commonjs-style modules for the UI
