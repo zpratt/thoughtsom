@@ -9,9 +9,14 @@
             ThoughtCollection = require('../../../../src/ui/collections/thought-collection'),
             ThoughtModel = require('../../../../src/ui/models/thought-model'),
 
-            collection;
+            collection,
 
-        sinon.stub(jquery, 'ajax');
+            jqXHRfake = {
+                then: function () { return; },
+                state: function () { return 'resolved'; }
+            };
+
+        sinon.stub(jquery, 'ajax').returns(jqXHRfake);
 
         beforeEach(function () {
             collection = new ThoughtCollection();
@@ -32,6 +37,15 @@
             actualModel = collection.models[0];
 
             assert.instanceOf(actualModel, ThoughtModel);
+        });
+
+        it('should expose an promise to determine when the collection is finished loading', function () {
+            assert.equal('pending', collection.loaded.state());
+
+            var promise = collection.fetch();
+
+            assert.strictEqual(collection.loaded, jqXHRfake);
+            assert.strictEqual(promise, jqXHRfake);
         });
     });
 }());

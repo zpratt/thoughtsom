@@ -7,18 +7,18 @@ module.exports = (function () {
 
         ThoughtCollection = require('./collections/thought-collection'),
         ThoughtListView = require('./views/thought-list'),
+        ThoughtItemView = require('./views/thought-item'),
         ThoughtModel = require('./models/thought-model');
 
     return function () {
         var collection = new ThoughtCollection(),
             view = new ThoughtListView({
                 el: $('main section.thoughts ul').get(0),
-                collection: collection
+                collection: collection,
+                ItemView: ThoughtItemView
             });
 
-        collection.fetch().done(function () {
-            view.render();
-        });
+        collection.fetch();
 
         $('[data-create-thought] button[type="submit"]').on('click', function (event) {
             var formData = $(this).parents('form').serializeArray(),

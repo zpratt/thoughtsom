@@ -8,8 +8,11 @@ module.exports = function (config) {
 
     function preprocessor() {
         var files = {};
-        _.each(_.union(prodFiles, testFiles), function (file) {
-            files[file] = ['browserify', 'coverage'];
+        _.each(testFiles, function (file) {
+            files[file] = ['browserify'];
+        });
+        _.each(prodFiles, function (file) {
+            files[file] = ['coverage'];
         });
 
         return files;
@@ -24,7 +27,7 @@ module.exports = function (config) {
             debug: true,
             transform: ['hbsfy']
         },
-        files: _.map(_.union(prodFiles, testFiles), function (file) {
+        files: _.map(testFiles, function (file) {
             return {pattern: file, watch: true}
         }),
         reporters: ['progress'],

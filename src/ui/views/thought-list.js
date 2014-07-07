@@ -1,33 +1,44 @@
 module.exports = (function () {
+    /*jshint validthis:true */
+
     'use strict';
 
     var Backbone = require('backbone'),
         $ = require('jquery'),
-        _ = require('lodash'),
-
-        ThoughtItemView = require('./thought-item');
+        _ = require('lodash');
 
     Backbone.$ = $;
 
+    function createChildView(ItemView, model) {
+        var $li = $('<li/>');
+
+        return new ItemView({el: $li.get(0), model: model});
+    }
+
+    function appendItem(model, ItemView) {
+        var childView = createChildView(ItemView, model);
+        this.childViews.push(childView);
+
+        this.$el.append(childView.$el);
+    }
+
     return Backbone.View.extend({
-        initialize: function () {
+        initialize: function (options) {
+            var itemView = options.ItemView;
             this.childViews = [];
+
+            this.collection.loaded.then(_.bind(function () {
+                this.render(itemView);
+            }, this));
+
             this.collection.on('add', _.bind(function (model) {
-                var $childEl = $('<li />'),
-                    itemView = new ThoughtItemView({
-                        el: $childEl.get(0),
-                        model: model
-                    });
-
-                this.childViews.push(itemView);
-
-                this.$el.append(itemView.$el);
+                appendItem.call(this, model, itemView);
             }, this));
         },
 
-        render: function () {
-            _.each(this.childViews, _.bind(function (item) {
-                this.$el.append(item.$el);
+        render: function (ItemView) {
+            this.collection.each(_.bind(function (model) {
+                appendItem.call(this, model, ItemView);
             }, this));
         }
     });
