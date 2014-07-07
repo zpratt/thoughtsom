@@ -23,7 +23,7 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt jshint && grunt test:bdd && grunt test:unit"
   },
   "devDependencies": {
     "browserify": "^4.1.6",
@@ -31,33 +31,43 @@
     "chai": "^1.9.0",
     "config": "~0.4.35",
     "coveralls": "~2.8.0",
+    "faker": "^1.0.0",
     "grunt": "~0.4.2",
     "grunt-browserify": "~2.1.0",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-docco": "~0.3.3",
+    "grunt-grunticon": "^1.2.6",
     "grunt-karma": "^0.8.3",
     "grunt-mocha-cov": "0.2.x",
     "grunt-nodemon": "~0.2.0",
+    "grunt-plato": "^1.0.0",
+    "handlebars": "^1.3.0",
+    "hbsfy": "^1.3.2",
     "karma": "^0.12.16",
-    "karma-browserifast": "^0.6.1",
+    "karma-bro": "^0.6.0",
     "karma-chai": "^0.1.0",
-    "karma-commonjs": "0.0.8",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-coverage": "^0.2.4",
     "karma-mocha": "^0.1.3",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-sinon": "^1.0.3",
-    "load-grunt-tasks": "^0.4.0",
-    "mocha": "~1.17.1",
+    "load-grunt-tasks": "^0.5.0",
+    "mocha": "^1.20.1",
     "nodemon": "~1.0.14",
-    "proxyquire": "~0.5.2",
-    "sinon": "~1.9.0",
+    "proxyquire": "^1.0.1",
+    "sinon": "^1.10.2",
     "supertest": "~0.13.0",
-    "yadda": "^0.10.12"
+    "uglifyify": "^2.4.0",
+    "watchify": "^0.10.2",
+    "yadda": "^0.10.13"
   },
   "dependencies": {
-    "mongoose": "^3.8.12",
+    "backbone": "^1.1.2",
+    "express": "^3.13.0",
+    "jquery": "^2.1.1",
     "lodash": "~2.4.1",
-    "express": "~3.4.8"
+    "mongoose": "^3.8.12"
   }
 }

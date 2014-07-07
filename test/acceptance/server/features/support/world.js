@@ -48,10 +48,7 @@
                 body: casual.text
             });
 
-            model.save(function (err, model) {
-                if (err) {
-                    console.log('error saving model: ' + JSON.stringify(model));
-                }
+            model.save(function () {
                 if (done) {
                     done();
                 }
@@ -70,10 +67,7 @@
         };
 
         this.clearDB = function clearDB(done) {
-            ThoughtModel.collection.remove(function (err) {
-                if(err) {
-                    console.log('Error occurred removing: ' + err);
-                }
+            ThoughtModel.collection.remove(function () {
                 done();
             });
         };

@@ -1,51 +1,55 @@
 module.exports = function (config) {
+    'use strict';
+
+    var _ = require('lodash'),
+        files = require('config'),
+        prodFiles = files.ui_prod,
+        testFiles = files.ui_test_bdd;
+
+    function preprocessor() {
+        var files = {};
+        _.each(_.union(prodFiles, testFiles.spec, testFiles.step), function (file) {
+            files[file] = 'browserify';
+        });
+
+        return files;
+    }
+
     config.set({
-        basePath: '.',
+        basePath: files.basePath,
         frameworks: ['mocha', 'chai', 'sinon', 'browserify'],
-        files: [
-            {pattern: 'bower_components/jquery/dist/jquery.min.js'},
-            {pattern: 'bower_components/lodash/dist/lodash.underscore.min.js'},
-            {pattern: 'bower_components/angular/angular.min.js'},
-            {pattern: 'bower_components/angular-mocks/angular-mocks.js'},
 
-            {pattern: 'test/acceptance/ui/features/thought-ui.feature', included: false},
-        ],
-        exclude: [],
+        preprocessors: preprocessor(),
 
-        preprocessors: {
-            '/**/*.browserify': 'browserify'
-        },
         browserify: {
             debug: true,
-            files: [
-                'src/ui/app.js',
-                'src/ui/controllers/*.js',
-                'test/acceptance/ui/*.spec.js',
-                'test/acceptance/ui/features/step_definitions/*.step.js'
-            ]
+            transform: ['hbsfy']
         },
 
-        client: {
-            mocha: {
-                ui: 'bdd'
-            }
-        },
+        files: _.union(
+            _.map(_.union(prodFiles, testFiles.spec, testFiles.step), function (file) {
+                return {pattern: file, watch: true}
+            }),
+            _.map(testFiles.feature, function (file) {
+                return {pattern: file, included: false, watch: true}
+            })
+        ),
 
+        autoWatch: true,
         reporters: ['progress'],
         port: 9999,
         colors: true,
-        logLevel: config.LOG_WARN,
-        autoWatch: false,
+        reportSlowerThan: 50,
+        logLevel: config.LOG_INFO,
         browsers: ['PhantomJS'],
         plugins: [
             'karma-chai',
             'karma-mocha',
-            'karma-phantomjs-launcher',
             'karma-sinon',
-            'karma-browserifast'
+            'karma-bro',
+            'karma-phantomjs-launcher',
+            'karma-chrome-launcher'
         ],
-        captureTimeout: 6000,
-        singleRun: true
+        captureTimeout: 6000
     });
-}
-
+};

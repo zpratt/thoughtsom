@@ -1,40 +1,49 @@
 module.exports = function (config) {
+    'use strict';
+
+    var _ = require('lodash'),
+        files = require('config'),
+        prodFiles = files.ui_prod,
+        testFiles = files.ui_test_unit;
+
+    function preprocessor() {
+        var files = {};
+        _.each(testFiles, function (file) {
+            files[file] = ['browserify'];
+        });
+        _.each(prodFiles, function (file) {
+            files[file] = ['coverage'];
+        });
+
+        return files;
+    }
+
     config.set({
         basePath: '.',
-        frameworks: ['mocha', 'commonjs', 'chai', 'sinon'],
-        files: [
-            {pattern: 'bower_components/lodash/dist/lodash.underscore.js'},
-            {pattern: 'bower_components/angular/angular.js'},
-            {pattern: 'bower_components/angular-mocks/angular-mocks.js'},
-
-            {pattern: 'src/ui/app.js'},
-            {pattern: 'src/ui/controllers/*.js'},
-
-            {pattern: 'test/unit/ui/controllers/*_test.spec.js'}
-        ],
+        frameworks: ['mocha', 'chai', 'sinon', 'browserify'],
         exclude: [],
-        preprocessors: {
-            'src/ui/app.js': ['commonjs'],
-            'src/ui/controllers/thought-controller.js': ['commonjs'],
-            'test/unit/ui/controllers/*_test.spec.js': ['commonjs']
+        preprocessors: preprocessor(),
+        browserify: {
+            debug: true,
+            transform: ['hbsfy']
         },
-
-        reporters: ['dots'],
-        port: 9999,
+        files: _.map(testFiles, function (file) {
+            return {pattern: file, watch: true}
+        }),
+        reporters: ['progress'],
+        port: 9998,
         colors: true,
         logLevel: config.LOG_INFO,
-        autoWatch: false,
+        autoWatch: true,
         browsers: ['PhantomJS'],
-//        browsers: ['Chrome'],
         plugins: [
             'karma-chai',
+            'karma-coverage',
             'karma-mocha',
-            'karma-commonjs',
+            'karma-bro',
             'karma-phantomjs-launcher',
-            'karma-chrome-launcher',
             'karma-sinon'
         ],
-        captureTimeout: 6000,
-        singleRun: true
+        captureTimeout: 6000
     });
 };

@@ -1,6 +1,6 @@
-'use strict';
-
 (function() {
+    'use strict';
+
     var mongoose = require('mongoose'),
         Schema = mongoose.Schema,
         thoughtSchema;
@@ -11,5 +11,5 @@
         created_ts: {type: Date, default: Date.now }
     });
 
-    exports.thought_schema = thoughtSchema;
+    module.exports.thought_schema = thoughtSchema;
 }());
