@@ -9,6 +9,13 @@
             ThoughtCollection = require('../../../../src/ui/collections/thought-collection'),
             ThoughtModel = require('../../../../src/ui/models/thought-model'),
 
+            ConcreteCollection = ThoughtCollection.extend({
+                parse: function (res) {
+                    res.thisworks = 'see';
+
+                    return res;
+                }
+            }),
             collection,
 
             jqXHR,
@@ -21,7 +28,7 @@
 
             jqXHR = $.Deferred();
 
-            collection = new ThoughtCollection();
+            collection = new ConcreteCollection();
 
             sandbox.stub($, 'ajax', function (options) {
                 if (options.success) {
@@ -62,6 +69,7 @@
             assert.strictEqual(promise, jqXHR);
 
             assert.equal(collection.length, 1);
+            assert.equal(collection.models[0].attributes.thisworks, 'see');
         });
     });
 }());
