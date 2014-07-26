@@ -4,22 +4,36 @@
     describe('Thought Collection', function () {
         var sinon = require('sinon'),
 
-            jquery = require('jquery'),
+            $ = require('jquery'),
             Backbone = require('backbone'),
             ThoughtCollection = require('../../../../src/ui/collections/thought-collection'),
             ThoughtModel = require('../../../../src/ui/models/thought-model'),
 
             collection,
 
-            jqXHRfake = {
-                then: function () { return; },
-                state: function () { return 'resolved'; }
-            };
+            jqXHR,
 
-        sinon.stub(jquery, 'ajax').returns(jqXHRfake);
+            sandbox;
+
 
         beforeEach(function () {
+            sandbox = sinon.sandbox.create();
+
+            jqXHR = $.Deferred();
+
             collection = new ThoughtCollection();
+
+            sandbox.stub($, 'ajax', function (options) {
+                if (options.success) {
+                    options.success({"some": "data"});
+                }
+
+                return jqXHR;
+            });
+        });
+
+        afterEach(function () {
+            sandbox.restore();
         });
 
         it('should be an instance of Backbone.Collection', function () {
@@ -44,8 +58,10 @@
 
             var promise = collection.fetch();
 
-            assert.strictEqual(collection.loaded, jqXHRfake);
-            assert.strictEqual(promise, jqXHRfake);
+            assert.strictEqual(collection.loaded, jqXHR);
+            assert.strictEqual(promise, jqXHR);
+
+            assert.equal(collection.length, 1);
         });
     });
 }());
